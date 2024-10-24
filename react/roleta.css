@@ -59,7 +59,7 @@
 
 .segmentText {
   display: flex;
-  /* display: none; */
+  display: none;
   transform: rotate(90deg);
   font-size: 17px;
   font-weight: bold;
@@ -199,8 +199,8 @@
 
 .textoPrize{
   display: flex;
-  flex-direction: column;
-  margin: 3px;
+  flex-direction: row;
+  margin: 10px;
   justify-content: center;
   align-items: center;
 }

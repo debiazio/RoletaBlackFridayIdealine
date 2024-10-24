@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import styles from './roleta.css';
 
@@ -9,8 +8,6 @@ const Roleta = () => {
   const [hasSpun, setHasSpun] = useState(false);
   const [selectedPrize, setSelectedPrize] = useState<{ code: string, title: string } | null>(null);
   const [showSpinButton, setShowSpinButton] = useState(false); // Controla a exibição do botão
-
-
 
   const prizeMap: { [key: string]: string } = {
     'blackesmalteira': 'Porta Esmaltes by MAD.U',
@@ -51,7 +48,6 @@ const Roleta = () => {
     }
   };
 
-
   useEffect(() => {
     fetchPrizes();
   }, []);
@@ -69,22 +65,51 @@ const Roleta = () => {
     return () => clearInterval(interval);
   }, [hasSpun]);
 
-  const handleSpin = (): void => {
+  const getPrizeCode = (randomNumber: number): string => {
+    if (randomNumber >= 1 && randomNumber <= 60) return 'blackenvelopep';
+    if (randomNumber >= 61 && randomNumber <= 66) return 'blackenvelopeg';
+    if (randomNumber >= 67 && randomNumber <= 72) return 'blackpinkbox';
+    if (randomNumber >= 73 && randomNumber <= 75) return 'blackesmalteira';
+    if (randomNumber === 76) return 'blackfrete';
+    if (randomNumber >= 77 && randomNumber <= 78) return 'black50reais';
+    return '';
+  };
+
+  const handleSpin = async (): Promise<void> => {
     if (!spinning && !hasSpun && prizes.length > 0) {
       setSpinning(true);
       setHasSpun(true);
 
-      const prizeIndex = Math.floor(Math.random() * prizes.length);
-      const segmentAngle = 360 / prizes.length;
-      const spinDegrees = 360 * 4 - (prizeIndex * segmentAngle);
-      const spinTime = 3000;
+      const randomNumber = Math.floor(Math.random() * 78) + 1; // Sorteio entre 1 e 78
+      const prizeCode = getPrizeCode(randomNumber); // Obter código do prêmio
 
-      setRotation(spinDegrees);
+      // Validar se o código do prêmio está ativo na API
+      const prizeResponse = await fetch(`/api/rnb/pvt/coupon/${prizeCode}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-VTEX-API-AppKey': 'vtexappkey-mfmgroup-JRARVZ',
+          'X-VTEX-API-AppToken': 'TYDSNCNFUXBHOXTCDAOEDUEQUYVENMUGGSNQORXBEFMKMHIITXIPAXVUAXODZBMLCKKFHNFBDSYKFPKFOTYVMBRUGMBAJPUCWVBFARYTOQWWORTAZIXKSSKZWBZRGGNL',
+        },
+      });
 
-      setTimeout(() => {
+      const prizeData = await prizeResponse.json();
+
+      if (!prizeData.isArchived) { // Verificar se o prêmio está ativo
+        const segmentAngle = 360 / prizes.length;
+        const spinDegrees = 360 * 4 - (prizes.findIndex(p => p.code === prizeCode) * segmentAngle);
+        const spinTime = 3000;
+
+        setRotation(spinDegrees);
+        setSelectedPrize({ code: prizeCode, title: prizeMap[prizeCode] || prizeCode }); // Salva o objeto completo, com código e título
+
+        setTimeout(() => {
+          setSpinning(false);
+        }, spinTime);
+      } else {
         setSpinning(false);
-        setSelectedPrize(prizes[prizeIndex]); // Salva o objeto completo, com código e título
-      }, spinTime);
+        setHasSpun(false); // Resetar para permitir um novo giro
+      }
     }
   };
 
@@ -99,7 +124,7 @@ const Roleta = () => {
 
         <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
           <img
-            src="https://stermax.com.br/images_idealine/Roleta_dourada_Texto.png"
+            src="https://stermax.com.br/images_idealine/roleta_imagens.png"
             alt="Roleta"
             className={styles.wheelImage}
           />
@@ -135,33 +160,27 @@ const Roleta = () => {
         <div className={styles.prize}>
           <p>Parabéns! Você ganhou o cupom "{selectedPrize.code}".</p> {/* Exibe o código do cupom */}
 
-
-
-            <div className={styles.botaowhats}>
-              <p className={styles.textoPrize}>
-                 <a className={styles.textoPrizeLink} href={`https://api.whatsapp.com/send?phone=5541998516332&text=Olá, ganhei o cupom ${selectedPrize.code} na roleta!`}>Clique aqui para falar com uma de nossas consultoras</a>
-              </p>
-              <a
-                href={`https://api.whatsapp.com/send?phone=5541998516332&text=Olá, ganhei o cupom ${selectedPrize?.code} na roleta!`}
-                className={styles.whatsappButton}
-              >
-                <img
-                  src="https://stermax.com.br/images_idealine/Digital_Glyph_Green.png"
-                  alt="Ícone WhatsApp"
-                  className={styles.whatsappIcon}
-                />
-              </a>
-
-            </div>
-            <div className={styles.botaosite}>
-              <p className={styles.textoPrize}>
-                <a className={styles.textoPrizeLink} href={`https://idealine.com.br/`}>Ou clique aqui e use o cupom sorteado no nosso site
-                <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone sacola" className={styles.SacolaIcon}/>
-                </a>
-              </p>
-
-            </div>
-
+          <div className={styles.botaowhats}>
+            <p className={styles.textoPrize}>
+              <a className={styles.textoPrizeLink} href={`https://api.whatsapp.com/send?phone=5541998516332&text=Olá, ganhei o cupom ${selectedPrize.code} na roleta!`}>Clique aqui para falar com uma de nossas consultoras</a>
+            </p>
+            <a
+              href={`https://api.whatsapp.com/send?phone=5541998516332&text=Olá, ganhei o cupom ${selectedPrize?.code} na roleta!`}
+              className={styles.whatsappButton}
+            >
+              <img
+                src="https://stermax.com.br/images_idealine/Digital_Glyph_Green.png"
+                alt="Ícone WhatsApp"
+                className={styles.whatsappIcon}
+              />
+            </a>
+          </div>
+          <div className={styles.botaosite}>
+            <p className={styles.textoPrize}>
+              <a className={styles.textoPrizeLink} href={`https://idealine.com.br/`}>Ou clique aqui e use o cupom sorteado no nosso site</a>
+              <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone sacola" className={styles.SacolaIcon}/>
+            </p>
+          </div>
         </div>
       )}
     </div>

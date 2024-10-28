@@ -1,19 +1,46 @@
+:root {
+  --rosa-da-rosa: #fc51a7;
+  --rosa-pink-escuro: #e90b91;
+  --pink: #ff3eb5;
+  --violeta: #fc87fc;
+  --mimi-pink: #ffd8f3;
+  --pale-purple: #ffebfb;
+  --preto-raisin: #2f2b2d;
+  --cinza-french: #bcb2ba;
+  --magnolia: #ede7eb;
+  --white: #fffefd;
+  --blush-lavanda: #fff3fd;
+  --sombra: #70809038;
+}
+
+/*conteiner principal*/
+.roletaContainer {
+  /* flex: 1; */
+  min-width: 750px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+
 .wheelContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 40px;
   position: relative;
-  width: 450px;
-  height: 450px;
+  width: 420px;
+  height: 420px;
   will-change: transform;
   top: 25px;
 }
 
 .wheel {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   transition: transform 3s ease-in-out;
 }
@@ -22,6 +49,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  position: absolute;
 }
 
 /* Pointer padrão (sem vibração) */
@@ -55,6 +83,7 @@
   transform-origin: 0% 90%;
   /* Aproxima o texto mais do centro */
   text-align: center;
+  display: none;
 }
 
 .segmentText {
@@ -96,6 +125,7 @@
   right: 10px;
   font-size: 24px;
   cursor: pointer;
+  color: #ede7eb;
 }
 
 
@@ -135,15 +165,6 @@
   /* Espaçamento entre as colunas */
 }
 
-.roletaContainer {
-  /* flex: 1; */
-  min-width: 750px;
-  min-height: 750px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .formContainer {
   flex: 1;
   /* Ocupa a outra metade da largura */
@@ -171,14 +192,21 @@
 
 
 .spinButton {
-  color: #fff;
-  background-color: #E90B91;
-  width: fit-content;
-  padding: 10px;
   border: none;
-  border-radius: 20px;
+  background-color: #e90b91;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(233, 11, 145, 0.8);
+  transition: box-shadow 0.3s ease-in-out;
+  text-transform: uppercase;
+  padding: 15px;
+  margin-top: 20px
+}
+
+.spinButton:hover {
+  box-shadow: 0px 0px 30px 15px rgba(233, 11, 145, 0.8);
 }
 
 .spinButton:disabled {
@@ -192,12 +220,12 @@
   color: #fff;
 }
 
-.botoes{
+.botoes {
   display: flex;
   flex-direction: row;
 }
 
-.textoPrize{
+.textoPrize {
   display: flex;
   flex-direction: row;
   margin: 10px;
@@ -205,7 +233,7 @@
   align-items: center;
 }
 
-.botaowhats{
+.botaowhats {
   display: flex;
   border-radius: 20px;
   background-color: #E90B91;
@@ -214,13 +242,40 @@
 
 /* .textoPrizeLink */
 
-.whatsappIcon{
+.whatsappIcon {
   width: 34px;
 }
 
-.SacolaIcon{
+.SacolaIcon {
   width: 34px;
   margin-left: 10px;
+}
+
+/* tabela premios */
+.prizeTable {
+  color: #fff;
+  font-size: 12px;
+  bottom: 40px;
+  position: absolute;
+}
+
+/* cabecalho tabela */
+.prizeTable h3 {
+  text-align: center;
+  background-color: var(--rosa-da-rosa);
+  padding: 3px;
+  border-radius: 10px 10px 0px 0px;
+  margin: 0;
+
+}
+
+.prizeTable table {
+  border-collapse: collapse;
+}
+
+.prizeTable td {
+  border: 1px solid #fff;
+  padding: 8px 10px;
 }
 
 @keyframes pulse {
@@ -251,13 +306,103 @@
   padding: 5px;
 }
 
-.botaosite{
+.botaosite {
   background-color: #E90B91;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+.hidden {
+  display: none;
+}
+
+/* teste */
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* min-width: 700px;
+  min-height: 700px; */
+}
+
+/* Sidebar da direita */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 600px;
+  margin-top: 5%;
+}
+
+.logoImageIdealine {
+  background-color: #fc51a7;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  border-radius: 0px 0px 10px 10px;
+  padding: 10px 55px;
+}
+
+.titleImage {
+  width: 400px;
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+/* teste */
+
+.conteinerTextos2Layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.conteinerTextos2LayoutTKS {
+  font-family: "Rubik semibold";
+  color: #ff489c;
+  font-size: 20px;
+  font-weight: 900;
+  text-shadow: 0 0 1px #ff489c, 0 0 5px #ff489c, 0 0 10px #ff489c, 0 0 15px #ff489c, 0 0 20px #ff489c;
+}
+
+.conteinerTextos2LayoutChegou {
+
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: "Rubik";
+  text-shadow: 0 0 5px #00b3d8, 0 0 10px #00b3d8, 0 0 15px #00b3d8, 0 0 20px rgba(255, 23, 135, 0.854), 0 0 30px rgba(255, 23, 137, 0.7), 0 0 40px rgba(255, 23, 137, 0.7);
+}
+
+.conteinerTextos2LayoutTorcendo {
+  color: #ff489c;
+  font-family: "Rubik Semibold";
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.conteinerTextos2LayoutTKS p,
+.conteinerTextos2LayoutChegou p,
+.conteinerTextos2LayoutTorcendo p {
+  margin: 10px;
+}
+
+.conteinerTextos2LayoutImgMera {
+  width: 100%;
+  display: flex;
+  font-size: 14px;
+  bottom: 0;
+  position: absolute;
+  color: #ffffff;
+  text-shadow: 0 0 1px #ffffff, 0 0 5px #ffffff;
+  font-family: "Rubik";
+  flex-direction: column;
+  align-items: center;
+}
+
 /* .whatsappButton {
   background-color: #2FB944;
   padding: 5px;
@@ -299,7 +444,7 @@
     height: 50%;
   }
 
-  .prize{
+  .prize {
     width: 60%;
   }
 

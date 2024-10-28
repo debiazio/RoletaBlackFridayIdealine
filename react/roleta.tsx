@@ -7,7 +7,8 @@ const Roleta = () => {
   const [spinning, setSpinning] = useState(false);
   const [hasSpun, setHasSpun] = useState(false);
   const [selectedPrize, setSelectedPrize] = useState<{ code: string, title: string } | null>(null);
-  const [showSpinButton, setShowSpinButton] = useState(false); // Controla a exibição do botão
+  const [showSpinButton, setShowSpinButton] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const prizeMap: { [key: string]: string } = {
     'blackesmalteira': 'Porta Esmaltes by MAD.U',
@@ -33,7 +34,7 @@ const Roleta = () => {
 
       const activePrizes = data
         .filter((coupon: any) =>
-          !coupon.isArchived && coupon.couponCode.toLowerCase().startsWith('black') // Filtra cupons ativos que começam com "black"
+          !coupon.isArchived && coupon.couponCode.toLowerCase().startsWith('black')
         )
         .sort((a: any, b: any) => new Date(b.lastModifiedUtc).getTime() - new Date(a.lastModifiedUtc).getTime())
         .slice(0, 6)
@@ -55,10 +56,15 @@ const Roleta = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const successMessage = document.querySelector('.vtex-rich-text-0-x-paragraph--confirm-form-roleta');
-      console.log('Success Message Detected:', !!successMessage); // Debugging line
       if (successMessage && !hasSpun) {
-        setShowSpinButton(true); // Exibe o botão quando a mensagem de sucesso aparecer
+        setShowSpinButton(true);
+        setShowSidebar(true);
         clearInterval(interval);
+
+        const formElement = document.querySelector('.vtex-flex-layout-0-x-flexRow--row-form-roleta');
+        if (formElement) {
+          (formElement as HTMLElement).style.display = 'none';
+        }
       }
     }, 500);
 
@@ -80,10 +86,9 @@ const Roleta = () => {
       setSpinning(true);
       setHasSpun(true);
 
-      const randomNumber = Math.floor(Math.random() * 78) + 1; // Sorteio entre 1 e 78
-      const prizeCode = getPrizeCode(randomNumber); // Obter código do prêmio
+      const randomNumber = Math.floor(Math.random() * 78) + 1;
+      const prizeCode = getPrizeCode(randomNumber);
 
-      // Validar se o código do prêmio está ativo na API
       const prizeResponse = await fetch(`/api/rnb/pvt/coupon/${prizeCode}`, {
         method: 'GET',
         headers: {
@@ -95,94 +100,125 @@ const Roleta = () => {
 
       const prizeData = await prizeResponse.json();
 
-      if (!prizeData.isArchived) { // Verificar se o prêmio está ativo
+      if (!prizeData.isArchived) {
         const segmentAngle = 360 / prizes.length;
         const spinDegrees = 360 * 4 - (prizes.findIndex(p => p.code === prizeCode) * segmentAngle);
         const spinTime = 3000;
 
         setRotation(spinDegrees);
-        setSelectedPrize({ code: prizeCode, title: prizeMap[prizeCode] || prizeCode }); // Salva o objeto completo, com código e título
+        setSelectedPrize({ code: prizeCode, title: prizeMap[prizeCode] || prizeCode });
 
         setTimeout(() => {
           setSpinning(false);
         }, spinTime);
       } else {
         setSpinning(false);
-        setHasSpun(false); // Resetar para permitir um novo giro
+        setHasSpun(false);
       }
     }
   };
 
   return (
     <div className={styles.roletaContainer}>
-      <div className={styles.wheelContainer}>
-        <img
-          src="https://stermax.com.br/images_idealine/pointer.png"
-          alt="Ponteiro"
-          className={`${styles.pointer} ${spinning ? styles.pointerVibrate : ''}`}
-        />
+      <div className={`${styles.formularioRoleta} ${showSpinButton ? styles.oculto : ''}`}>
+        {/* Conteúdo do formulário */}
+      </div>
 
-        <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
-          <img
-            src="https://stermax.com.br/images_idealine/roleta_imagens.png"
-            alt="Roleta"
-            className={styles.wheelImage}
-          />
-          <div className={styles.prizesOverlay}>
-            {prizes.map((prize, index) => (
-              <div
-                key={index}
-                className={styles.prizeSegment}
-                style={{ transform: `rotate(${index * (360 / prizes.length)}deg)` }}
-              >
-                <span className={styles.segmentText}>{prize.title}</span>
+      {/* Tabela de Prêmios */}
+      {!showSpinButton && (
+        <div className={styles.prizeTable}>
+          <h3>PRÊMIOS</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>FRETE GRÁTIS</td>
+                <td>ENVELOPE 9x23 CM</td>
+              </tr>
+              <tr>
+                <td>ENVELOPE 5X13 CM</td>
+                <td>PORTA ESMALTES</td>
+              </tr>
+              <tr>
+                <td>BOX MAD.U</td>
+                <td>VALE DESCONTO DE R$50</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <div className={styles.container}>
+        {/* Div lateral */}
+        {showSidebar && (
+          <div className={styles.sidebar}>
+            <img
+              src="https://stermax.com.br/images_idealine/logo-branco.png"
+              alt="Logo"
+              className={styles.logoImageIdealine}
+            />
+            <img
+              src="https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"
+              alt="Título Roleta Prêmios"
+              className={styles.titleImage}
+            />
+            <div className={styles.conteinerTextos2Layout}>
+              <div className={styles.conteinerTextos2LayoutTKS}>
+                <p>AGRADECEMOS SEU CADASTRO!</p>
               </div>
-            ))}
+              <div className={styles.conteinerTextos2LayoutChegou}>
+                <p>CHEGOU A HORA DE TESTAR A SUA SORTE</p>
+              </div>
+              <div className={styles.conteinerTextos2LayoutTorcendo}>
+                <p>ESTAMOS TORCENDO POR VOCÊ!</p>
+              </div>
+            </div>
+
+            {showSpinButton && (
+              <div className={styles.spinButtonContainer}>
+                <button
+                  onClick={handleSpin}
+                  className={`${styles.spinButton} ${selectedPrize ? styles.pulsatingButton : ''}`}
+                  disabled={spinning || hasSpun}
+                >
+                  {spinning ? 'Girando...' : selectedPrize ? selectedPrize.code : 'Girar a Roleta'}
+                </button>
+              </div>
+            )}
+            <div className={styles.conteinerTextos2LayoutImgMera}>
+              <p>*Imagens de prêmios meramente ilustrativas</p>
+            </div>
+          </div>
+        )}
+
+        {/* Div da roleta */}
+        <div className={styles.wheelContainer}>
+          <img
+            src="https://stermax.com.br/images_idealine/pointer.png"
+            alt="Ponteiro"
+            className={`${styles.pointer} ${spinning ? styles.pointerVibrate : ''}`}
+          />
+          <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
+            <img
+              src="https://stermax.com.br/images_idealine/roleta_imagens.png"
+              alt="Roleta"
+              className={styles.wheelImage}
+            />
+            <div className={styles.prizesOverlay}>
+              {prizes.map((prize, index) => (
+                <div
+                  key={index}
+                  className={styles.prizeSegment}
+                  style={{
+                    transform: `rotate(${(360 / prizes.length) * index}deg) skewY(-30deg)`,
+                  }}
+                >
+                  <span className={styles.prizeLabel}>{prize.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Exibir o botão "Girar" apenas quando permitido */}
-      {showSpinButton && (
-        <div className={styles.spinButtonContainer}>
-          <button
-            onClick={handleSpin}
-            className={`${styles.spinButton} ${selectedPrize ? styles.pulsatingButton : ''}`} // Aplicar efeito pulsante
-            disabled={spinning || hasSpun} // Desabilitar quando já girou
-          >
-            {spinning ? 'Girando...' : selectedPrize ? selectedPrize.code : 'Girar a Roleta'} {/* Exibe o código do cupom */}
-          </button>
-        </div>
-      )}
-
-      {/* Mensagem final com botão do WhatsApp */}
-      {!spinning && selectedPrize && (
-        <div className={styles.prize}>
-          <p>Parabéns! Você ganhou o cupom "{selectedPrize.code}".</p> {/* Exibe o código do cupom */}
-
-          <div className={styles.botaowhats}>
-            <p className={styles.textoPrize}>
-              <a className={styles.textoPrizeLink} href={`https://api.whatsapp.com/send?phone=5541998516332&text=Olá, ganhei o cupom ${selectedPrize.code} na roleta!`}>Clique aqui para falar com uma de nossas consultoras</a>
-            </p>
-            <a
-              href={`https://api.whatsapp.com/send?phone=5541998516332&text=Olá, ganhei o cupom ${selectedPrize?.code} na roleta!`}
-              className={styles.whatsappButton}
-            >
-              <img
-                src="https://stermax.com.br/images_idealine/Digital_Glyph_Green.png"
-                alt="Ícone WhatsApp"
-                className={styles.whatsappIcon}
-              />
-            </a>
-          </div>
-          <div className={styles.botaosite}>
-            <p className={styles.textoPrize}>
-              <a className={styles.textoPrizeLink} href={`https://idealine.com.br/`}>Ou clique aqui e use o cupom sorteado no nosso site</a>
-              <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone sacola" className={styles.SacolaIcon}/>
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

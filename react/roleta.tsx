@@ -9,6 +9,7 @@ const Roleta = () => {
   const [selectedPrize, setSelectedPrize] = useState<{ code: string, title: string } | null>(null);
   const [showSpinButton, setShowSpinButton] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [thirdLayout, setThirdLayout] = useState(false);
 
   const prizeMap: { [key: string]: string } = {
     'blackesmalteira': 'Porta Esmaltes by MAD.U',
@@ -110,6 +111,7 @@ const Roleta = () => {
 
         setTimeout(() => {
           setSpinning(false);
+          setThirdLayout(true); // Alteração para exibir o terceiro layout
         }, spinTime);
       } else {
         setSpinning(false);
@@ -157,23 +159,25 @@ const Roleta = () => {
               className={styles.logoImageIdealine}
             />
             <img
-              src="https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"
+              src={thirdLayout
+                ? "https://stermax.com.br/images_idealine/UAAAU.svg"
+                : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
               alt="Título Roleta Prêmios"
               className={styles.titleImage}
             />
             <div className={styles.conteinerTextos2Layout}>
               <div className={styles.conteinerTextos2LayoutTKS}>
-                <p>AGRADECEMOS SEU CADASTRO!</p>
+                <p>{thirdLayout ? "QUE PRÊMIO SUPER BACANA." : "AGRADECEMOS SEU CADASTRO!"}</p>
               </div>
               <div className={styles.conteinerTextos2LayoutChegou}>
-                <p>CHEGOU A HORA DE TESTAR A SUA SORTE</p>
+                <p>{thirdLayout ? "PARABÉNS!" : "CHEGOU A HORA DE TESTAR A SUA SORTE"}</p>
               </div>
               <div className={styles.conteinerTextos2LayoutTorcendo}>
-                <p>ESTAMOS TORCENDO POR VOCÊ!</p>
+                <p>{thirdLayout ? "AGORA É COM VOCÊ:" : "ESTAMOS TORCENDO POR VOCÊ!"}</p>
               </div>
             </div>
 
-            {showSpinButton && (
+            {showSpinButton && !thirdLayout && (
               <div className={styles.spinButtonContainer}>
                 <button
                   onClick={handleSpin}
@@ -200,22 +204,9 @@ const Roleta = () => {
           <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
             <img
               src="https://stermax.com.br/images_idealine/roleta_imagens.png"
-              alt="Roleta"
+              alt="Imagem da roleta"
               className={styles.wheelImage}
             />
-            <div className={styles.prizesOverlay}>
-              {prizes.map((prize, index) => (
-                <div
-                  key={index}
-                  className={styles.prizeSegment}
-                  style={{
-                    transform: `rotate(${(360 / prizes.length) * index}deg) skewY(-30deg)`,
-                  }}
-                >
-                  <span className={styles.prizeLabel}>{prize.title}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

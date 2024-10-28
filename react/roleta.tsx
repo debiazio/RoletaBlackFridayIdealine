@@ -177,6 +177,21 @@ const Roleta = () => {
               </div>
             </div>
 
+              {/* Exibe a nova div somente no terceiro layout */}
+            {thirdLayout && (
+              <div className={styles.AgoraEhComVC}>
+
+                <p><img src="https://stermax.com.br/images_idealine/Seta.svg" alt="seta" className={styles.Seta}></img>Informe o código do cupom sorteado via Whatsapp.</p>
+
+
+                <p>Ou faça a compra diretamente aqui no site.</p>
+
+
+                <p>Preencha todos os dados para a compra,  e o campo do cupom aparecerá na última etapa antes do pagamento. Lembre-se de digitar em letras maiúsculas.</p>
+
+              </div>
+            )}
+
             {showSpinButton && !thirdLayout && (
               <div className={styles.spinButtonContainer}>
                 <button

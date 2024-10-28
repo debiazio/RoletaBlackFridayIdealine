@@ -403,6 +403,22 @@
   align-items: center;
 }
 
+/* LAYOUT 3 */
+.AgoraEhComVC{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0;
+}
+
+.AgoraEhComVC p{
+  margin: 0;
+}
+
+.Seta{
+  width: 10px;
+}
 /* .whatsappButton {
   background-color: #2FB944;
   padding: 5px;

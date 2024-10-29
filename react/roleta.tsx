@@ -147,6 +147,8 @@ const Roleta = () => {
             </tbody>
           </table>
         </div>
+
+
       )}
 
       <div className={styles.container}>
@@ -173,24 +175,25 @@ const Roleta = () => {
                 <p>{thirdLayout ? "PARABÉNS!" : "CHEGOU A HORA DE TESTAR A SUA SORTE"}</p>
               </div>
               <div className={styles.conteinerTextos2LayoutTorcendo}>
-                <p>{thirdLayout ? "AGORA É COM VOCÊ:" : "ESTAMOS TORCENDO POR VOCÊ!"}</p>
+                <p className={thirdLayout ? styles.underline : ""}>
+                  {thirdLayout ? "AGORA É COM VOCÊ:" : "ESTAMOS TORCENDO POR VOCÊ!"}
+                </p>
               </div>
+
             </div>
 
               {/* Exibe a nova div somente no terceiro layout */}
-            {thirdLayout && (
-              <div className={styles.AgoraEhComVC}>
+              {thirdLayout && (
+                <div className={styles.AgoraEhComVC}>
+                  <ul className={styles.List}>
+                    <li>Informe o código do cupom sorteado via Whatsapp.</li>
+                    <li>Ou faça a compra diretamente aqui no site.</li>
+                    <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
+                      Lembre-se de digitar em letras maiúsculas.</li>
+                  </ul>
+                </div>
+              )}
 
-                <p><img src="https://stermax.com.br/images_idealine/Seta.svg" alt="seta" className={styles.Seta}></img>Informe o código do cupom sorteado via Whatsapp.</p>
-
-
-                <p>Ou faça a compra diretamente aqui no site.</p>
-
-
-                <p>Preencha todos os dados para a compra,  e o campo do cupom aparecerá na última etapa antes do pagamento. Lembre-se de digitar em letras maiúsculas.</p>
-
-              </div>
-            )}
 
             {showSpinButton && !thirdLayout && (
               <div className={styles.spinButtonContainer}>
@@ -223,7 +226,16 @@ const Roleta = () => {
               className={styles.wheelImage}
             />
           </div>
+          {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
+          {thirdLayout && selectedPrize && (
+            <div className={styles.couponMessage}>
+              <p>Você ganhou o cupom <strong>{selectedPrize.code.toUpperCase()}</strong> nas compras acima de R$ 390 reais.</p>
+              <p>Válido apenas um prêmio por CPF. </p>
+              <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
+            </div>
+          )}
         </div>
+
       </div>
     </div>
   );

@@ -91,14 +91,14 @@
 }
 
 .segmentText {
-  display: flex;
-  display: none;
-  transform: rotate(90deg);
-  font-size: 17px;
+  /* display: none; */
+  transform: rotate(158deg);
+  font-size: 14px;
   font-weight: bold;
-  color: black;
-  margin-top: -76px;
-  margin-right: 250px;
+  color: rgb(255, 255, 255);
+  margin-top: -11px;
+  margin-right: 91px;
+  WIDTH: max-content;
 }
 
 .modalOverlay {
@@ -206,7 +206,8 @@
   transition: box-shadow 0.3s ease-in-out;
   text-transform: uppercase;
   padding: 15px;
-  margin-top: 20px
+  margin-top: 20px;
+  font-family: "Rubik";
 }
 
 .spinButton:hover {
@@ -339,6 +340,7 @@
   align-items: center;
   min-width: 600px;
   margin-top: 5%;
+  margin-left: 15px;
 }
 
 .logoImageIdealine {
@@ -507,11 +509,11 @@
   cursor: pointer;
 }
 
-.whatsConsultoras{
+.whatsConsultoras {
   width: 25px;
 }
 
-.iconeSacola{
+.iconeSacola {
   width: 45px;
 }
 

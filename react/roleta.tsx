@@ -20,12 +20,12 @@ const copyToClipboard = (text: string) => {
 
 
   const prizeMap: { [key: string]: string } = {
-    'blackesmalteira': 'Porta Esmaltes by MAD.U',
-    'blackfrete': 'Frete Grátis',
-    'blackenvelopeg': 'Envelope 9x25',
-    'blackenvelopep': 'Envelope 5x13',
-    'blackpinkbox': 'BOX MAD.U',
-    'black50reais': 'R$50 OFF'
+    'blackenvelopeg': 'Env. G',
+    'black50reais': 'R$50',
+    'blackpinkbox': 'BOX',
+    'blackesmalteira': 'P. Esmaltes',
+    'blackenvelopep': 'Env. P',
+    'blackfrete': 'Frete'
   };
 
   const fetchPrizes = async (): Promise<void> => {
@@ -54,7 +54,7 @@ const copyToClipboard = (text: string) => {
 
       setPrizes(activePrizes);
     } catch (error) {
-      console.error('Erro ao buscar cupons:', error);
+      console.error('Erro ao buscar códigos dos cupons:', error);
     }
   };
 
@@ -257,10 +257,23 @@ const copyToClipboard = (text: string) => {
           />
           <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
             <img
-              src="https://stermax.com.br/images_idealine/roleta_imagens.png"
+              src="https://stermax.com.br/images_idealine/roleta_imagens_v2.png"
               alt="Imagem da roleta"
               className={styles.wheelImage}
             />
+            {/* Distribuição circular dos prêmios */}
+    {prizes.map((prize, index) => (
+      <div
+        key={index}
+        className={styles.segmentText}
+        style={{
+          transform: `rotate(${index * (360 / prizes.length)}deg)`,
+        }}
+      >
+        <span className={styles.segmentText}>{prize.title}</span>
+        {/* {prize.title} */}
+      </div>
+    ))}
           </div>
         {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
         {thirdLayout && selectedPrize && (

@@ -22,9 +22,9 @@ const copyToClipboard = (text: string) => {
   const prizeMap: { [key: string]: string } = {
     'blackenvelopeg': 'Env. G',
     'black50reais': 'R$50',
+    'blackenvelopep': 'Env. P',
     'blackpinkbox': 'BOX',
     'blackesmalteira': 'P. Esmaltes',
-    'blackenvelopep': 'Env. P',
     'blackfrete': 'Frete'
   };
 
@@ -81,12 +81,13 @@ const copyToClipboard = (text: string) => {
   }, [hasSpun]);
 
   const getPrizeCode = (randomNumber: number): string => {
-    if (randomNumber >= 1 && randomNumber <= 60) return 'blackenvelopep';
-    if (randomNumber >= 61 && randomNumber <= 66) return 'blackenvelopeg';
-    if (randomNumber >= 67 && randomNumber <= 72) return 'blackpinkbox';
-    if (randomNumber >= 73 && randomNumber <= 75) return 'blackesmalteira';
-    if (randomNumber === 76) return 'blackfrete';
-    if (randomNumber >= 77 && randomNumber <= 78) return 'black50reais';
+    // if (randomNumber >= 1 && randomNumber <= 60) return 'blackenvelopep';
+    // if (randomNumber >= 61 && randomNumber <= 66) return 'blackenvelopeg';
+    // if (randomNumber >= 67 && randomNumber <= 72) return 'blackpinkbox';
+    // if (randomNumber >= 73 && randomNumber <= 75) return 'blackesmalteira';
+    // if (randomNumber === 76) return 'blackfrete';
+    // if (randomNumber >= 77 && randomNumber <= 78) return 'black50reais';
+    if (randomNumber >= 1 && randomNumber <= 78) return 'blackenvelopep';
     return '';
   };
 
@@ -110,17 +111,23 @@ const copyToClipboard = (text: string) => {
       const prizeData = await prizeResponse.json();
 
       if (!prizeData.isArchived) {
+        // Ângulo do segmento de cada prêmio
         const segmentAngle = 360 / prizes.length;
-        const spinDegrees = 360 * 4 - (prizes.findIndex(p => p.code === prizeCode) * segmentAngle);
-        const spinTime = 3000;
 
-        setRotation(spinDegrees);
+        // Posição do prêmio sorteado
+        const prizeIndex = prizes.findIndex((p) => p.code === prizeCode);
+
+        // Ângulo necessário para alinhar o prêmio sorteado ao ponteiro
+        const targetAngle = 360 * 4 - prizeIndex * segmentAngle;
+
+        // Define a rotação final com alinhamento exato ao ponteiro
+        setRotation(targetAngle);
         setSelectedPrize({ code: prizeCode, title: prizeMap[prizeCode] || prizeCode });
 
         setTimeout(() => {
           setSpinning(false);
-          setThirdLayout(true); // Alteração para exibir o terceiro layout
-        }, spinTime);
+          setThirdLayout(true);
+        }, 3000);
       } else {
         setSpinning(false);
         setHasSpun(false);
@@ -257,7 +264,7 @@ const copyToClipboard = (text: string) => {
           />
           <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
             <img
-              src="https://stermax.com.br/images_idealine/roleta_imagens_v2.png"
+              src="https://stermax.com.br/images_idealine/roleta_SINCRONIZADA.png"
               alt="Imagem da roleta"
               className={styles.wheelImage}
             />

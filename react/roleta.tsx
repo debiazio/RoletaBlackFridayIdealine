@@ -11,6 +11,14 @@ const Roleta = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [thirdLayout, setThirdLayout] = useState(false);
 
+// Função para copiar o texto para a área de transferência com o tipo string para o parâmetro 'text'
+const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text)
+    .then(() => alert('Código copiado!'))
+    .catch((err) => console.error('Erro ao copiar texto: ', err));
+};
+
+
   const prizeMap: { [key: string]: string } = {
     'blackesmalteira': 'Porta Esmaltes by MAD.U',
     'blackfrete': 'Frete Grátis',
@@ -182,17 +190,45 @@ const Roleta = () => {
 
             </div>
 
-              {/* Exibe a nova div somente no terceiro layout */}
-              {thirdLayout && (
-                <div className={styles.AgoraEhComVC}>
-                  <ul className={styles.List}>
-                    <li>Informe o código do cupom sorteado via Whatsapp.</li>
-                    <li>Ou faça a compra diretamente aqui no site.</li>
-                    <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
-                      Lembre-se de digitar em letras maiúsculas.</li>
-                  </ul>
+             {/* Exibe a nova div somente no terceiro layout */}
+            {thirdLayout && (
+              <div className={styles.AgoraEhComVC}>
+                <ul className={styles.List}>
+                  <li>Informe o código do cupom sorteado via Whatsapp.</li>
+                  <li>Ou faça a compra diretamente aqui no site.</li>
+                  <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
+                    Lembre-se de digitar em letras maiúsculas.
+                  </li>
+                </ul>
+
+                {/* Botões de Compra */}
+                <div className={styles.buttonContainer}>
+                  <button
+                    onClick={() => {
+                      if (selectedPrize) {
+                        window.open(
+                        `https://wa.me/5541998516332?text=Olá, ganhei o cupom com o prêmio ${selectedPrize.code.toUpperCase()} na roleta, quero efetuar a compra e garantir meu prêmio`,
+                          '_blank'
+                        );
+                      }
+                    }}
+                    className={styles.whatsappButton}
+                  >
+                    COMPRAR COM CONSULTORA E GARANTIR O MEU PRÊMIO
+                    <img src="https://stermax.com.br/images_idealine/ícone de What.svg" alt="Ícone whatsapp" className={styles.whatsConsultoras}/>
+                  </button>
+
+                  <button
+                    onClick={() => window.open('https://www.idealine.com.br', '_blank')}
+                    className={styles.siteButton}
+                  >
+                    COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO
+                    <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone compra no site" className={styles.iconeSacola}/>
+                  </button>
                 </div>
-              )}
+              </div>
+            )}
+
 
 
             {showSpinButton && !thirdLayout && (
@@ -226,15 +262,19 @@ const Roleta = () => {
               className={styles.wheelImage}
             />
           </div>
-          {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
-          {thirdLayout && selectedPrize && (
-            <div className={styles.couponMessage}>
-              <p>Você ganhou o cupom <strong>{selectedPrize.code.toUpperCase()}</strong> nas compras acima de R$ 390 reais.</p>
-              <p>Válido apenas um prêmio por CPF. </p>
-              <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
-            </div>
-          )}
-        </div>
+        {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
+        {thirdLayout && selectedPrize && (
+          <div className={styles.couponMessage}>
+            <p>
+              Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy'}}>
+              {selectedPrize.code.toUpperCase()}
+              </span></strong> nas compras acima de R$ 390 reais.
+            </p>
+            <p>Válido apenas um prêmio por CPF. </p>
+            <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
+          </div>
+        )}
+      </div>
 
       </div>
     </div>

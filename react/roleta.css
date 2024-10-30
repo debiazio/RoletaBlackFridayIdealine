@@ -31,16 +31,20 @@
   /* align-items: center; */
   margin: 40px;
   position: relative;
-  width: 550px; /*NÃO ALTERAR - limite de  550px com wheel em 430px*/
-  height: 580px; /*NÃO ALTERAR - limite de 580px com whell em 430px*/
+  width: 550px;
+  /*NÃO ALTERAR - limite de  550px com wheel em 430px*/
+  height: 580px;
+  /*NÃO ALTERAR - limite de 580px com whell em 430px*/
   will-change: transform;
   /* top: 25px; */
 }
 
 .wheel {
   position: absolute;
-  width: 430px; /*NÃO ALTERAR */
-  height: 430px; /*NÃO ALTERAR - */
+  width: 430px;
+  /*NÃO ALTERAR */
+  height: 430px;
+  /*NÃO ALTERAR - */
   border-radius: 50%;
   transition: transform 3s ease-in-out;
 }
@@ -404,7 +408,7 @@
 }
 
 /* LAYOUT 3 */
-.AgoraEhComVC{
+.AgoraEhComVC {
   color: white;
   display: flex;
   flex-direction: column;
@@ -412,13 +416,14 @@
   margin: 0;
 }
 
-.AgoraEhComVC p{
+.AgoraEhComVC p {
   margin: 0;
 }
 
-.Seta{
+.Seta {
   width: 10px;
 }
+
 /* .whatsappButton {
   background-color: #2FB944;
   padding: 5px;
@@ -427,23 +432,29 @@
 } */
 
 .AgoraEhComVC .List {
-  list-style: none; /* Remove os marcadores padrão */
+  list-style: none;
+  /* Remove os marcadores padrão */
   padding-left: 0;
   margin-left: -30px;
 }
 
 .AgoraEhComVC .List li {
   position: relative;
-  padding-left: 30px; /* Espaço para o ícone da seta */
-  margin-bottom: 10px; /* Espaçamento entre itens */
+  padding-left: 30px;
+  /* Espaço para o ícone da seta */
+  margin-bottom: 10px;
+  /* Espaçamento entre itens */
 }
 
 .AgoraEhComVC .List li::before {
-  content: url('https://stermax.com.br/images_idealine/Seta.svg'); /* Define a imagem como marcador */
+  content: url('https://stermax.com.br/images_idealine/Seta.svg');
+  /* Define a imagem como marcador */
   position: absolute;
-  left: 0; /* Posiciona o ícone antes do texto */
+  left: 0;
+  /* Posiciona o ícone antes do texto */
   top: 0;
-  width: 10px; /* Ajuste conforme necessário */
+  width: 10px;
+  /* Ajuste conforme necessário */
   height: 10px;
 }
 
@@ -451,20 +462,58 @@
   text-decoration: underline;
 }
 
-.couponMessage{
+.couponMessage {
   color: white;
   bottom: 0;
   position: absolute;
   text-align: center;
 }
 
-.couponMessage p{
+.couponMessage p {
   margin: 0;
   color: #ffffff;
   text-shadow: 0 0 1px #ffffff, 0 0 5px #ffffff;
   font-family: "Rubik";
 }
 
+.couponMessage strong {
+  color: var(--rosa-da-rosa);
+  text-shadow: none;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+
+  margin-left: -20px;
+  margin-right: -20px;
+  gap: 10px;
+}
+
+.whatsappButton,
+.siteButton {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: var(--rosa-da-rosa);
+  font-size: 12px;
+  border: none;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: 'Rubik';
+  box-shadow: 0 0 30px rgba(233, 11, 145, 0.8);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.whatsConsultoras{
+  width: 25px;
+}
+
+.iconeSacola{
+  width: 45px;
+}
 
 /* classes mobile  */
 @media screen and (max-width: 1024px) {

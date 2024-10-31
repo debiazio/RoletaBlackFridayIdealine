@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './roleta.css';
 
 const Roleta = () => {
-  const [prizes, setPrizes] = useState<{ code: string, title: string }[]>([]);
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [hasSpun, setHasSpun] = useState(false);
@@ -10,57 +9,24 @@ const Roleta = () => {
   const [showSpinButton, setShowSpinButton] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [thirdLayout, setThirdLayout] = useState(false);
+  const [windowWidth] = useState(window.innerWidth);
 
-// Função para copiar o texto para a área de transferência com o tipo string para o parâmetro 'text'
-const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text)
-    .then(() => alert('Código copiado!'))
-    .catch((err) => console.error('Erro ao copiar texto: ', err));
-};
+  // Lista de prêmios fixos
+  const prizes = [
+    { code: 'blackenvelopeg', title: 'Env. G' },
+    { code: 'black50reais', title: 'R$50' },
+    { code: 'blackpinkbox', title: 'BOX' },
+    { code: 'blackesmalteira', title: 'P. Esmaltes' },
+    { code: 'blackenvelopep', title: 'Env. P' },
+    { code: 'blackfrete', title: 'Frete' },
+  ];
 
-
-  const prizeMap: { [key: string]: string } = {
-    'blackenvelopeg': 'Env. G',
-    'black50reais': 'R$50',
-    'blackenvelopep': 'Env. P',
-    'blackpinkbox': 'BOX',
-    'blackesmalteira': 'P. Esmaltes',
-    'blackfrete': 'Frete'
+  // Função para copiar o texto para a área de transferência
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => alert('Código copiado!'))
+      .catch((err) => console.error('Erro ao copiar texto: ', err));
   };
-
-  const fetchPrizes = async (): Promise<void> => {
-    try {
-      const response = await fetch('/api/rnb/pvt/coupon', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-VTEX-API-AppKey': 'vtexappkey-mfmgroup-JRARVZ',
-          'X-VTEX-API-AppToken': 'TYDSNCNFUXBHOXTCDAOEDUEQUYVENMUGGSNQORXBEFMKMHIITXIPAXVUAXODZBMLCKKFHNFBDSYKFPKFOTYVMBRUGMBAJPUCWVBFARYTOQWWORTAZIXKSSKZWBZRGGNL',
-        },
-      });
-
-      const data = await response.json();
-
-      const activePrizes = data
-        .filter((coupon: any) =>
-          !coupon.isArchived && coupon.couponCode.toLowerCase().startsWith('black')
-        )
-        .sort((a: any, b: any) => new Date(b.lastModifiedUtc).getTime() - new Date(a.lastModifiedUtc).getTime())
-        .slice(0, 6)
-        .map((coupon: any) => ({
-          code: coupon.couponCode,
-          title: prizeMap[coupon.couponCode.toLowerCase()] || coupon.couponCode
-        }));
-
-      setPrizes(activePrizes);
-    } catch (error) {
-      console.error('Erro ao buscar códigos dos cupons:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPrizes();
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -81,13 +47,12 @@ const copyToClipboard = (text: string) => {
   }, [hasSpun]);
 
   const getPrizeCode = (randomNumber: number): string => {
-    // if (randomNumber >= 1 && randomNumber <= 60) return 'blackenvelopep';
-    // if (randomNumber >= 61 && randomNumber <= 66) return 'blackenvelopeg';
-    // if (randomNumber >= 67 && randomNumber <= 72) return 'blackpinkbox';
-    // if (randomNumber >= 73 && randomNumber <= 75) return 'blackesmalteira';
-    // if (randomNumber === 76) return 'blackfrete';
-    // if (randomNumber >= 77 && randomNumber <= 78) return 'black50reais';
-    if (randomNumber >= 1 && randomNumber <= 78) return 'blackenvelopep';
+    if (randomNumber >= 1 && randomNumber <= 60) return 'blackenvelopep';
+    if (randomNumber >= 61 && randomNumber <= 66) return 'blackenvelopeg';
+    if (randomNumber >= 67 && randomNumber <= 72) return 'blackpinkbox';
+    if (randomNumber >= 73 && randomNumber <= 75) return 'blackesmalteira';
+    if (randomNumber === 76) return 'blackfrete';
+    if (randomNumber >= 77 && randomNumber <= 78) return 'black50reais';
     return '';
   };
 
@@ -99,39 +64,23 @@ const copyToClipboard = (text: string) => {
       const randomNumber = Math.floor(Math.random() * 78) + 1;
       const prizeCode = getPrizeCode(randomNumber);
 
-      const prizeResponse = await fetch(`/api/rnb/pvt/coupon/${prizeCode}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-VTEX-API-AppKey': 'vtexappkey-mfmgroup-JRARVZ',
-          'X-VTEX-API-AppToken': 'TYDSNCNFUXBHOXTCDAOEDUEQUYVENMUGGSNQORXBEFMKMHIITXIPAXVUAXODZBMLCKKFHNFBDSYKFPKFOTYVMBRUGMBAJPUCWVBFARYTOQWWORTAZIXKSSKZWBZRGGNL',
-        },
-      });
+      // Ângulo do segmento de cada prêmio
+      const segmentAngle = 360 / prizes.length;
 
-      const prizeData = await prizeResponse.json();
+      // Posição do prêmio sorteado
+      const prizeIndex = prizes.findIndex((p) => p.code === prizeCode);
 
-      if (!prizeData.isArchived) {
-        // Ângulo do segmento de cada prêmio
-        const segmentAngle = 360 / prizes.length;
+      // Ângulo necessário para alinhar o prêmio sorteado ao ponteiro
+      const targetAngle = 360 * 4 - prizeIndex * segmentAngle;
 
-        // Posição do prêmio sorteado
-        const prizeIndex = prizes.findIndex((p) => p.code === prizeCode);
+      // Define a rotação final com alinhamento exato ao ponteiro
+      setRotation(targetAngle);
+      setSelectedPrize({ code: prizeCode, title: prizeCode });
 
-        // Ângulo necessário para alinhar o prêmio sorteado ao ponteiro
-        const targetAngle = 360 * 4 - prizeIndex * segmentAngle;
-
-        // Define a rotação final com alinhamento exato ao ponteiro
-        setRotation(targetAngle);
-        setSelectedPrize({ code: prizeCode, title: prizeMap[prizeCode] || prizeCode });
-
-        setTimeout(() => {
-          setSpinning(false);
-          setThirdLayout(true);
-        }, 3000);
-      } else {
+      setTimeout(() => {
         setSpinning(false);
-        setHasSpun(false);
-      }
+        setThirdLayout(true);
+      }, 3000);
     }
   };
 
@@ -141,7 +90,7 @@ const copyToClipboard = (text: string) => {
         {/* Conteúdo do formulário */}
       </div>
 
-      {/* Tabela de Prêmios */}
+      {/* T abela de Prêmios */}
       {!showSpinButton && (
         <div className={styles.prizeTable}>
           <h3>PRÊMIOS</h3>
@@ -149,7 +98,7 @@ const copyToClipboard = (text: string) => {
             <tbody>
               <tr>
                 <td>FRETE GRÁTIS</td>
-                <td>ENVELOPE 9x23 CM</td>
+                <td>ENVELOPE 9x 23 CM</td>
               </tr>
               <tr>
                 <td>ENVELOPE 5X13 CM</td>
@@ -162,8 +111,6 @@ const copyToClipboard = (text: string) => {
             </tbody>
           </table>
         </div>
-
-
       )}
 
       <div className={styles.container}>
@@ -176,9 +123,11 @@ const copyToClipboard = (text: string) => {
               className={styles.logoImageIdealine}
             />
             <img
-              src={thirdLayout
-                ? "https://stermax.com.br/images_idealine/UAAAU.svg"
-                : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
+              src={windowWidth <= 768
+                ? "https://stermax.com.br/images_idealine/titulo-mobile.svg"
+                : thirdLayout
+                  ? "https://stermax.com.br/images_idealine/UAAAU.svg"
+                  : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
               alt="Título Roleta Prêmios"
               className={styles.titleImage}
             />
@@ -264,37 +213,37 @@ const copyToClipboard = (text: string) => {
           />
           <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
             <img
-              src="https://stermax.com.br/images_idealine/roleta_SINCRONIZADA.png"
+              src="https://stermax.com.br/images_idealine/roleta_imagens_v2.png"
               alt="Imagem da roleta"
               className={styles.wheelImage}
             />
             {/* Distribuição circular dos prêmios */}
-    {prizes.map((prize, index) => (
-      <div
-        key={index}
-        className={styles.segmentText}
-        style={{
-          transform: `rotate(${index * (360 / prizes.length)}deg)`,
-        }}
-      >
-        <span className={styles.segmentText}>{prize.title}</span>
-        {/* {prize.title} */}
-      </div>
-    ))}
+            {prizes.map((prize, index) => (
+              <div
+                key={index}
+                className={styles.segmentText}
+                style={{
+                  transform: `rotate(${index * (360 / prizes.length)}deg)`,
+                }}
+              >
+                <span className={styles.segmentText}>{prize.title}</span>
+                {/* {prize.title} */}
+              </div>
+            ))}
           </div>
-        {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
-        {thirdLayout && selectedPrize && (
-          <div className={styles.couponMessage}>
-            <p>
-              Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy'}}>
-              {selectedPrize.code.toUpperCase()}
-              </span></strong> nas compras acima de R$ 390 reais.
-            </p>
-            <p>Válido apenas um prêmio por CPF. </p>
-            <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
-          </div>
-        )}
-      </div>
+          {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
+          {thirdLayout && selectedPrize && (
+            <div className={styles.couponMessage}>
+              <p>
+                Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy'}}>
+                {selectedPrize.code.toUpperCase()}
+                </span></strong> nas compras acima de R$ 390 reais.
+              </p>
+              <p>Válido apenas um prêmio por CPF. </p>
+              <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
+            </div>
+          )}
+        </div>
 
       </div>
     </div>

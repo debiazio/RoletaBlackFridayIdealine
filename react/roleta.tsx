@@ -9,7 +9,7 @@ const Roleta = () => {
   const [showSpinButton, setShowSpinButton] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [thirdLayout, setThirdLayout] = useState(false);
-  const [windowWidth] = useState(window.innerWidth);
+  const [showRoletaContainer, setShowRoletaContainer] = useState(false); // Novo estado para controlar a visibilidade do container
 
   // Lista de prêmios fixos
   const prizes = [
@@ -31,7 +31,8 @@ const Roleta = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const successMessage = document.querySelector('.vtex-rich-text-0-x-paragraph--confirm-form-roleta');
-      if (successMessage && !hasSpun) {
+      if (successMessage) {
+        setShowRoletaContainer(true); // Exibe o container da roleta quando a classe aparece
         setShowSpinButton(true);
         setShowSidebar(true);
         clearInterval(interval);
@@ -85,169 +86,164 @@ const Roleta = () => {
   };
 
   return (
-    <div className={styles.roletaContainer}>
+    <div className={styles.roletaContainer} style={{ display: showRoletaContainer ? 'block' : 'none' }}>
       <div className={`${styles.formularioRoleta} ${showSpinButton ? styles.oculto : ''}`}>
-        {/* Conteúdo do formulário */}
+                {/* Conteúdo do formulário */}
       </div>
 
-      {/* T abela de Prêmios */}
-      {!showSpinButton && (
-        <div className={styles.prizeTable}>
-          <h3>PRÊMIOS</h3>
-          <table>
-            <tbody>
-              <tr>
-                <td>FRETE GRÁTIS</td>
-                <td>ENVELOPE 9x 23 CM</td>
-              </tr>
-              <tr>
-                <td>ENVELOPE 5X13 CM</td>
-                <td>PORTA ESMALTES</td>
-              </tr>
-              <tr>
-                <td>BOX MAD.U</td>
-                <td>VALE DESCONTO DE R$50</td>
-              </tr>
-            </tbody>
-          </table>
+{/* Tabela de Prêmios */}
+{!showSpinButton && (
+  <div className={styles.prizeTable}>
+    <h3>PRÊMIOS</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>FRETE GRÁTIS</td>
+          <td>ENVELOPE 9x 23 CM</td>
+        </tr>
+        <tr>
+          <td>ENVELOPE 5X13 CM</td>
+          <td>PORTA ESMALTES</td>
+        </tr>
+        <tr>
+          <td>BOX MAD.U</td>
+          <td>VALE DESCONTO DE R$50</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+)}
+
+<div className={styles.container}>
+  {/* Div lateral */}
+  {showSidebar && (
+    <div className={styles.sidebar}>
+      <img
+        src="https://stermax.com.br/images_idealine/logo-branco.png"
+        alt="Logo"
+        className={styles.logoImageIdealine}
+      />
+      <img
+        src={window.innerWidth <= 768
+          ? "https://stermax.com.br/images_idealine/titulo-mobile.svg"
+          : thirdLayout
+            ? "https://stermax.com.br/images_idealine/UAAAU.svg"
+            : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
+        alt="Título Roleta Prêmios"
+        className={styles.titleImage}
+      />
+      <div className={styles.conteinerTextos2Layout}>
+        <div className={styles.conteinerTextos2LayoutTKS}>
+          <p>{thirdLayout ? "QUE PRÊMIO SUPER BACANA." : "AGRADECEMOS SEU CADASTRO!"}</p>
+        </div>
+        <div className={styles.conteinerTextos2LayoutChegou}>
+          <p>{thirdLayout ? "PARABÉNS!" : "CHEGOU A HORA DE TESTAR A SUA SORTE"}</p>
+        </div>
+        <div className={styles.conteinerTextos2LayoutTorcendo}>
+          <p className={thirdLayout ? styles.underline : ""}>
+            {thirdLayout ? "AGORA É COM VOCÊ:" : "ESTAMOS TORCENDO POR VOCÊ!"}
+          </p>
+        </div>
+      </div>
+
+      {/* Exibe a nova div somente no terceiro layout */}
+      {thirdLayout && (
+        <div className={styles.AgoraEhComVC}>
+          <ul className={styles.List}>
+            <li>Informe o código do cupom sorteado via Whatsapp.</li>
+            <li>Ou faça a compra diretamente aqui no site.</li>
+            <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
+              Lembre-se de digitar em letras maiúsculas.
+            </li>
+          </ul>
+
+          {/* Botões de Compra */}
+          <div className={styles.buttonContainer}>
+            <button
+              onClick={() => {
+                if (selectedPrize) {
+                  window.open(
+                    `https://wa.me/5541998516332?text=Olá, ganhei o cupom com o prêmio ${selectedPrize.code.toUpperCase()} na roleta, quero efetuar a compra e garantir meu prêmio`,
+                    '_blank'
+                  );
+                }
+              }}
+              className={styles.whatsappButton}
+            >
+              COMPRAR COM CONSULTORA E GARANTIR O MEU PRÊMIO
+              <img src="https://stermax.com.br/images_idealine/ícone de What.svg" alt="Ícone whatsapp" className={styles.whatsConsultoras} />
+            </button>
+
+            <button
+              onClick={() => window.open('https://www.idealine.com.br', '_blank')}
+              className={styles.siteButton}
+            >
+              COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO
+              <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone compra no site" className={styles.iconeSacola} />
+            </button>
+          </div>
         </div>
       )}
 
-      <div className={styles.container}>
-        {/* Div lateral */}
-        {showSidebar && (
-          <div className={styles.sidebar}>
-            <img
-              src="https://stermax.com.br/images_idealine/logo-branco.png"
-              alt="Logo"
-              className={styles.logoImageIdealine}
-            />
-            <img
-              src={windowWidth <= 768
-                ? "https://stermax.com.br/images_idealine/titulo-mobile.svg"
-                : thirdLayout
-                  ? "https://stermax.com.br/images_idealine/UAAAU.svg"
-                  : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
-              alt="Título Roleta Prêmios"
-              className={styles.titleImage}
-            />
-            <div className={styles.conteinerTextos2Layout}>
-              <div className={styles.conteinerTextos2LayoutTKS}>
-                <p>{thirdLayout ? "QUE PRÊMIO SUPER BACANA." : "AGRADECEMOS SEU CADASTRO!"}</p>
-              </div>
-              <div className={styles.conteinerTextos2LayoutChegou}>
-                <p>{thirdLayout ? "PARABÉNS!" : "CHEGOU A HORA DE TESTAR A SUA SORTE"}</p>
-              </div>
-              <div className={styles.conteinerTextos2LayoutTorcendo}>
-                <p className={thirdLayout ? styles.underline : ""}>
-                  {thirdLayout ? "AGORA É COM VOCÊ:" : "ESTAMOS TORCENDO POR VOCÊ!"}
-                </p>
-              </div>
+      {showSpinButton && !thirdLayout && (
+        <div className={styles.spinButtonContainer}>
+          <button
+                              onClick={handleSpin}
+                              className={`${styles.spinButton} ${selectedPrize ? styles.pulsatingButton : ''}`}
+                              disabled={spinning || hasSpun}
+                            >
+                              {spinning ? 'Girando...' : selectedPrize ? selectedPrize.code : 'Girar a Roleta'}
+                            </button>
+                          </div>
+                        )}
+                        <div className={styles.conteinerTextos2LayoutImgMera}>
+                          <p>*Imagens de prêmios meramente ilustrativas</p>
+                        </div>
+                      </div>
+                    )}
 
-            </div>
-
-             {/* Exibe a nova div somente no terceiro layout */}
-            {thirdLayout && (
-              <div className={styles.AgoraEhComVC}>
-                <ul className={styles.List}>
-                  <li>Informe o código do cupom sorteado via Whatsapp.</li>
-                  <li>Ou faça a compra diretamente aqui no site.</li>
-                  <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
-                    Lembre-se de digitar em letras maiúsculas.
-                  </li>
-                </ul>
-
-                {/* Botões de Compra */}
-                <div className={styles.buttonContainer}>
-                  <button
-                    onClick={() => {
-                      if (selectedPrize) {
-                        window.open(
-                        `https://wa.me/5541998516332?text=Olá, ganhei o cupom com o prêmio ${selectedPrize.code.toUpperCase()} na roleta, quero efetuar a compra e garantir meu prêmio`,
-                          '_blank'
-                        );
-                      }
-                    }}
-                    className={styles.whatsappButton}
-                  >
-                    COMPRAR COM CONSULTORA E GARANTIR O MEU PRÊMIO
-                    <img src="https://stermax.com.br/images_idealine/ícone de What.svg" alt="Ícone whatsapp" className={styles.whatsConsultoras}/>
-                  </button>
-
-                  <button
-                    onClick={() => window.open('https://www.idealine.com.br', '_blank')}
-                    className={styles.siteButton}
-                  >
-                    COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO
-                    <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone compra no site" className={styles.iconeSacola}/>
-                  </button>
+                    {/* Div da roleta */}
+                    <div className={styles.wheelContainer}>
+                      <img
+                        src="https://stermax.com.br/images_idealine/pointer.png"
+                        alt="Ponteiro"
+                        className={`${styles.pointer} ${spinning ? styles.pointerVibrate : ''}`}
+                      />
+                      <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
+                        <img
+                          src="https://stermax.com.br/images_idealine/roleta_imagens_v2.png"
+                          alt="Imagem da roleta"
+                          className={styles.wheelImage}
+                        />
+                        {/* Distribuição circular dos prêmios */}
+                        {prizes.map((prize, index) => (
+                          <div
+                            key={index}
+                            className={styles.segmentText}
+                            style={{
+                              transform: `rotate(${index * (360 / prizes.length)}deg)`,
+                            }}
+                          >
+                            <span className={styles.segmentText}>{prize.title}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
+                      {thirdLayout && selectedPrize && (
+                        <div className={styles.couponMessage}>
+                          <p>
+                            Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy' }}>
+                            {selectedPrize.code.toUpperCase()}
+                            </span></strong> nas compras acima de R$ 390 reais.
+                          </p>
+                          <p>Válido apenas um prêmio por CPF.</p>
+                          <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            };
 
-
-
-            {showSpinButton && !thirdLayout && (
-              <div className={styles.spinButtonContainer}>
-                <button
-                  onClick={handleSpin}
-                  className={`${styles.spinButton} ${selectedPrize ? styles.pulsatingButton : ''}`}
-                  disabled={spinning || hasSpun}
-                >
-                  {spinning ? 'Girando...' : selectedPrize ? selectedPrize.code : 'Girar a Roleta'}
-                </button>
-              </div>
-            )}
-            <div className={styles.conteinerTextos2LayoutImgMera}>
-              <p>*Imagens de prêmios meramente ilustrativas</p>
-            </div>
-          </div>
-        )}
-
-        {/* Div da roleta */}
-        <div className={styles.wheelContainer}>
-          <img
-            src="https://stermax.com.br/images_idealine/pointer.png"
-            alt="Ponteiro"
-            className={`${styles.pointer} ${spinning ? styles.pointerVibrate : ''}`}
-          />
-          <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
-            <img
-              src="https://stermax.com.br/images_idealine/roleta_imagens_v2.png"
-              alt="Imagem da roleta"
-              className={styles.wheelImage}
-            />
-            {/* Distribuição circular dos prêmios */}
-            {prizes.map((prize, index) => (
-              <div
-                key={index}
-                className={styles.segmentText}
-                style={{
-                  transform: `rotate(${index * (360 / prizes.length)}deg)`,
-                }}
-              >
-                <span className={styles.segmentText}>{prize.title}</span>
-                {/* {prize.title} */}
-              </div>
-            ))}
-          </div>
-          {/* Aqui adicionamos o texto abaixo da roleta no terceiro layout */}
-          {thirdLayout && selectedPrize && (
-            <div className={styles.couponMessage}>
-              <p>
-                Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy'}}>
-                {selectedPrize.code.toUpperCase()}
-                </span></strong> nas compras acima de R$ 390 reais.
-              </p>
-              <p>Válido apenas um prêmio por CPF. </p>
-              <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>
-            </div>
-          )}
-        </div>
-
-      </div>
-    </div>
-  );
-};
-
-export default Roleta;
+            export default Roleta;

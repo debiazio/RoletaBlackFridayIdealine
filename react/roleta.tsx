@@ -124,9 +124,7 @@ const Roleta = () => {
         className={styles.logoImageIdealine}
       />
       <img
-        src={window.innerWidth <= 768
-          ? "https://stermax.com.br/images_idealine/titulo-mobile.svg"
-          : thirdLayout
+        src={thirdLayout
             ? "https://stermax.com.br/images_idealine/UAAAU.svg"
             : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
         alt="Título Roleta Prêmios"

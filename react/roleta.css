@@ -518,35 +518,95 @@
   width: 45px;
 }
 
-/* classes mobile  */
-/* @media screen and (max-width: 400px) {
-  .container{
-    margin-top: -760px;
-  }
-
-} */
-
-
-/* @media screen and (min-width: 380px) and (max-height: 850px) {
-  .prizeTable {
-    bottom: -400px;
-  }
-
-  .container{
-    margin-top: -560px;
-  }
-} */
 
 
 @media screen and (max-width: 1024px) {
+  .buttonContainer {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .whatsappButton,
+  .siteButton {
+    padding: 0 2px 0px 2px;
+    padding: 0px;
+    border-radius: 10px;
+    background-color: var(--rosa-da-rosa);
+    font-size: 8px;
+  }
+
+  .couponMessage {
+    bottom: -114px;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 600px;
+    margin-top: 5%;
+  }
+
+  .logoImageIdealine {
+    background-color: #fc51a7;
+    width: 160px;
+    position: absolute;
+    top: 0;
+    border-radius: 0px 0px 10px 10px;
+    padding: 0px 35px;
+  }
+
+
+  .conteinerTextos2LayoutImgMera {
+    width: 100%;
+    display: flex;
+    font-size: 12px;
+    bottom: -458px;
+    position: relative;
+    color: #ffffff;
+    text-shadow: 0 0 1px #ffffff, 0 0 5px #ffffff;
+    font-family: "Rubik";
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .conteinerTextos2LayoutTorcendo {
+    color: #ff489c;
+    font-family: "Rubik Semibold";
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .conteinerTextos2LayoutChegou {
+    font-size: 26px;
+  }
+
+  .conteinerTextos2Layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    text-align: center;
+  }
+
+  .titleImage {
+    width: 280px;
+    margin-top: 38px;
+    margin-bottom: 15px;
+  }
+
   .prizeTable {
     bottom: 140px;
     position: relative;
   }
 
-  /* .container {
-    margin-top: -710px;
-  } */
+  .container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+  }
 
   .wheel {
     width: 280px;
@@ -557,17 +617,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 40px;
+    margin: 0;
     position: relative;
     width: 300px;
     height: 300px;
     will-change: transform;
-    margin-top: -710px;
+    flex-direction: column;
+    align-content: center;
   }
 
-  .roletaContainer {
-    min-width: unset;
-    min-height: unset;
+  .AgoraEhComVC .List li::before {
+    display: none;
+  }
+
+  .AgoraEhComVC {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 10px;
+    text-align: center;
   }
 
   .pointer {

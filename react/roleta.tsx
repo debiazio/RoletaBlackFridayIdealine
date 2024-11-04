@@ -402,15 +402,39 @@ const handleSpin = async (): Promise<void> => {
         className={styles.titleImage}
       />
       <div className={styles.conteinerTextos2Layout}>
-        <div className={styles.conteinerTextos2LayoutTKS}>
-          <p>{thirdLayout ? "QUE PRÊMIO SUPER BACANA." : "AGRADECEMOS SEU CADASTRO!"}</p>
-        </div>
+      <div className={styles.conteinerTextos2LayoutTKS}>
+        <p>
+          {thirdLayout
+            ? <span style={{ color: '#ffffff', textShadow: '0 0 5px #00b3d8, 0 0 10px #00b3d8, 0 0 15px #00b3d8, 0 0 20px rgba(255, 23, 135, 0.854), 0 0 30px rgba(255, 23, 137, 0.7), 0 0 40px rgba(255, 23, 137, 0.7)' }}>
+                PARABÉNS! AGORA É COM VOCÊ:
+              </span>
+            : "AGRADECEMOS SEU CADASTRO!"}
+        </p>
+      </div>
         <div className={styles.conteinerTextos2LayoutChegou}>
-          <p>{thirdLayout ? "PARABÉNS!" : "CHEGOU A HORA DE TESTAR A SUA SORTE"}</p>
+        <p>
+          {thirdLayout
+            ? selectedPrize && selectedPrize.code
+              ? (
+                <>
+                  <span style={{ color: '#FC51A7', textShadow: 'none' }}>
+                    Utilize o cupom:&nbsp; {/* Texto adicional com espaço não quebrável */}
+                  </span>
+                  <span
+                    onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())}
+                    style={{ cursor: 'pointer', color: '#FC51A7', textShadow: 'none' }} // Estilo para indicar que é clicável
+                  >
+                    {selectedPrize.code.toUpperCase()} {/* Exibe o código do cupom */}
+                  </span>
+                </>
+              )
+              : "CUPOM INVÁLIDO" // ou uma mensagem apropriada
+            : "CHEGOU A HORA DE TESTAR A SUA SORTE"}
+        </p>
         </div>
         <div className={styles.conteinerTextos2LayoutTorcendo}>
           <p className={thirdLayout ? styles.underline : ""}>
-            {thirdLayout ? "AGORA É COM VOCÊ:" : "ESTAMOS TORCENDO POR VOCÊ!"}
+            {thirdLayout ? "" : "ESTAMOS TORCENDO POR VOCÊ!"}
           </p>
         </div>
       </div>
@@ -501,9 +525,10 @@ const handleSpin = async (): Promise<void> => {
                       {thirdLayout && selectedPrize && (
                         <div className={styles.couponMessage}>
                           <p>
-                            Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy' }}>
+                            {/* Você <strong>GANHOU o CUPOM <span onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())} style={{ cursor: 'copy' }}>
                             {selectedPrize.code.toUpperCase()}
-                            </span></strong> nas compras acima de R$ 390 reais.
+                            </span></strong> */}
+                            Cupom válido nas compras acima de R$ 390 reais.
                           </p>
                           <p>Válido apenas um prêmio por CPF.</p>
                           <p>Estoque de prêmios limitado, sujeito à disponibilidade no momento da compra.</p>

@@ -578,14 +578,18 @@
   }
 
   .conteinerTextos2LayoutChegou {
-    font-size: 26px;
+    font-size: 22px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .conteinerTextos2Layout {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 40%;
     text-align: center;
   }
 

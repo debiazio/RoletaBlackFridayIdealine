@@ -418,11 +418,12 @@ const handleSpin = async (): Promise<void> => {
               ? (
                 <>
                   <span style={{ color: '#FC51A7', textShadow: 'none' }}>
-                    Utilize o cupom:&nbsp; {/* Texto adicional com espaço não quebrável */}
+                    Copie o seu cupom:<br /> {/* Quebra de linha aqui */}
+                    &nbsp; {/* Texto adicional com espaço não quebrável */}
                   </span>
                   <span
                     onClick={() => copyToClipboard(selectedPrize.code.toUpperCase())}
-                    style={{ cursor: 'pointer', color: '#FC51A7', textShadow: 'none' }} // Estilo para indicar que é clicável
+                    style={{ cursor: 'pointer', color: '#FC51A7', textShadow: 'none', fontSize: '30px' }} // Estilo para indicar que é clicável
                   >
                     {selectedPrize.code.toUpperCase()} {/* Exibe o código do cupom */}
                   </span>

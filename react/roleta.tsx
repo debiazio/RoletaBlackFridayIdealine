@@ -293,7 +293,7 @@ const Roleta = () => {
             },
         });
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         return data.isArchived ? null : prize.code; // Retorna o código se não estiver arquivado
     }));
 
@@ -325,7 +325,7 @@ const handleSpin = async (): Promise<void> => {
           prizeCode = await getPrizeCode(randomNumber); // Obtém o código do prêmio
 
           // Adiciona um log para ver o cupom sorteado
-          console.log(`Tentativa de cupom sorteado: ${prizeCode}`);
+          // console.log(`Tentativa de cupom sorteado: ${prizeCode}`);
 
           // Se o cupom não estiver arquivado, sai do loop
           if (prizeCode) {
@@ -334,7 +334,7 @@ const handleSpin = async (): Promise<void> => {
       }
 
       // Exibe o cupom sorteado no console
-      console.log(`Cupom sorteado: ${prizeCode}`);
+      // console.log(`Cupom sorteado: ${prizeCode}`);
 
       // Ângulo do segmento de cada prêmio
       const segmentAngle = 360 / prizes.length;

@@ -1,7 +1,7 @@
 {
   "vendor": "mfmgroup",
   "name": "roleta",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "title": "Roleta de Prêmios",
   "description": "Roleta de Prêmios",
   "builders": {

@@ -368,7 +368,7 @@
 }
 
 .conteinerTextos2LayoutTKS {
-  font-family: "Rubik semibold";
+  font-family: "Rubik";
   color: #ff489c;
   font-size: 25px;
   font-weight: 900;
@@ -386,7 +386,7 @@
 
 .conteinerTextos2LayoutTorcendo {
   color: #ff489c;
-  font-family: "Rubik Semibold";
+  font-family: "Rubik";
   font-size: 25px;
   font-weight: 900;
 }
@@ -572,7 +572,7 @@
 
   .conteinerTextos2LayoutTorcendo {
     color: #ff489c;
-    font-family: "Rubik Semibold";
+    font-family: "Rubik";
     font-size: 22px;
     font-weight: 900;
   }

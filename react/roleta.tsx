@@ -9,7 +9,9 @@ const Roleta = () => {
   const [showSpinButton, setShowSpinButton] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [thirdLayout, setThirdLayout] = useState(false);
-  const [showRoletaContainer, setShowRoletaContainer] = useState(false); // Novo estado para controlar a visibilidade do container
+  const [showRoletaContainer, setShowRoletaContainer] = useState(false);
+
+
 
   // Função para copiar o texto para a área de transferência
   const copyToClipboard = (text: string) => {
@@ -276,85 +278,53 @@ const Roleta = () => {
     ],
   };
 
-  const currentDate = new Date().toISOString().slice(0, 10);
+  // const currentDate = new Date().toISOString().slice(0, 10);
+  const currentDate = '2024-11-03'; // força uma data que existe nas regras
 
-  const getPrizeCode = async (randomNumber: number): Promise<string> => {
-    const rules = prizeRules[currentDate as keyof typeof prizeRules];
-    if (!rules) return '';
 
-    // Obter códigos ativos via API
-    const activePrizes: (string | null)[] = await Promise.all(prizes.map(async (prize) => {
-        const response = await fetch(`/api/rnb/pvt/coupon/${prize.code}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-VTEX-API-AppKey': 'vtexappkey-mfmgroup-JRARVZ',
-                'X-VTEX-API-AppToken': 'TYDSNCNFUXBHOXTCDAOEDUEQUYVENMUGGSNQORXBEFMKMHIITXIPAXVUAXODZBMLCKKFHNFBDSYKFPKFOTYVMBRUGMBAJPUCWVBFARYTOQWWORTAZIXKSSKZWBZRGGNL',
-            },
-        });
-        const data = await response.json();
-        // console.log(data);
-        return data.isArchived ? null : prize.code; // Retorna o código se não estiver arquivado
-    }));
+const getPrizeCode = (randomNumber: number): string => {
+  const rules = prizeRules[currentDate as keyof typeof prizeRules];
+  if (!rules) return '';
 
-    // Filtrar apenas prêmios ativos e garantir que o tipo seja string[]
-    const validPrizes: string[] = activePrizes.filter((prize): prize is string => prize !== null);
-
-    for (const rule of rules) {
-        if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
-            if (validPrizes.includes(rule.code)) {
-                return rule.code; // Retorna o código do prêmio ativo
-            }
-        }
+  for (const rule of rules) {
+    if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
+      return rule.code; // Apenas retorna o código da regra
     }
+  }
 
-    return '';
+  return '';
 };
 
-const handleSpin = async (): Promise<void> => {
+const handleSpin = (): void => {
   if (!spinning && !hasSpun && prizes.length > 0) {
-      setSpinning(true);
-      setHasSpun(true);
+    setSpinning(true);
+    setHasSpun(true);
 
-      let prizeCode = '';
-      let randomNumber = 0;
+    const randomNumber = Math.floor(Math.random() * 78) + 1;
+    const prizeCode = getPrizeCode(randomNumber);
 
-      // Continue sorteando até encontrar um cupom válido
-      while (true) {
-          randomNumber = Math.floor(Math.random() * 78) + 1; // Gera um número aleatório
-          prizeCode = await getPrizeCode(randomNumber); // Obtém o código do prêmio
+    // Ângulo do segmento de cada prêmio
+    const segmentAngle = 360 / prizes.length;
 
-          // Adiciona um log para ver o cupom sorteado
-          // console.log(`Tentativa de cupom sorteado: ${prizeCode}`);
+    // Posição do prêmio sorteado
+    const prizeIndex = prizes.findIndex((p) => p.code === prizeCode);
 
-          // Se o cupom não estiver arquivado, sai do loop
-          if (prizeCode) {
-              break; // Sai do loop se um cupom válido for encontrado
-          }
-      }
+    // Ângulo necessário para alinhar o prêmio sorteado ao ponteiro
+    const targetAngle = 360 * 4 - prizeIndex * segmentAngle;
 
-      // Exibe o cupom sorteado no console
-      // console.log(`Cupom sorteado: ${prizeCode}`);
+    // Define a rotação final com alinhamento exato ao ponteiro
+    setRotation(targetAngle);
+    setSelectedPrize({ code: prizeCode, title: prizeCode });
 
-      // Ângulo do segmento de cada prêmio
-      const segmentAngle = 360 / prizes.length;
-
-      // Posição do prêmio sorteado
-      const prizeIndex = prizes.findIndex((p) => p.code === prizeCode);
-
-      // Ângulo necessário para alinhar o prêmio sorteado ao ponteiro
-      const targetAngle = 360 * 4 - prizeIndex * segmentAngle;
-
-      // Define a rotação final com alinhamento exato ao ponteiro
-      setRotation(targetAngle);
-      setSelectedPrize({ code: prizeCode, title: prizeCode });
-
-      setTimeout(() => {
-          setSpinning(false);
-          setThirdLayout(true);
-      }, 3000);
+    setTimeout(() => {
+      setSpinning(false);
+      setThirdLayout(true);
+    }, 3000);
   }
 };
+
+
+
 
   return (
     <div className={styles.roletaContainer} style={{ display: showRoletaContainer ? 'block' : 'none' }}>
@@ -390,14 +360,14 @@ const handleSpin = async (): Promise<void> => {
   {showSidebar && (
     <div className={styles.sidebar}>
       <img
-        src="https://stermax.com.br/images_idealine/logo-branco.png"
+        src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/ac8d2ac3-148c-42d7-bf68-f2fd2602deb5___3c54c4087530540847683f3f38be3ebe.png"
         alt="Logo"
         className={styles.logoImageIdealine}
       />
       <img
         src={thirdLayout
-            ? "https://stermax.com.br/images_idealine/UAAAU.svg"
-            : "https://stermax.com.br/images_idealine/titulo-roleta-premios.svg"}
+            ? "https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/cb4041ad-4802-4398-897a-346f070dcfab___d503e6594dfed3189a6e322bfc4cce00.svg"
+            : "https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/85e2a701-708a-43a0-aef7-d5f2174c1ff7___680241d7ae7f57c92a1b1c14db3934cc.svg"}
         alt="Título Roleta Prêmios"
         className={styles.titleImage}
       />
@@ -465,7 +435,7 @@ const handleSpin = async (): Promise<void> => {
               className={styles.whatsappButton}
             >
               COMPRAR COM CONSULTORA E GARANTIR O MEU PRÊMIO
-              <img src="https://stermax.com.br/images_idealine/ícone de What.svg" alt="Ícone whatsapp" className={styles.whatsConsultoras} />
+              <img src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/033385b4-ec2e-4b80-b824-91b5d979c897___54e571574de08cf410c2541050bd7141.svg" alt="Ícone whatsapp" className={styles.whatsConsultoras} />
             </button>
 
             <button
@@ -473,7 +443,7 @@ const handleSpin = async (): Promise<void> => {
               className={styles.siteButton}
             >
               COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO
-              <img src="https://stermax.com.br/images_idealine/sacola.svg" alt="Ícone compra no site" className={styles.iconeSacola} />
+              <img src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/50116347-19fb-4975-8f9a-04c257b26cc2___dd491c62ea310a7cd1e7499cd430814e.svg" alt="Ícone compra no site" className={styles.iconeSacola} />
             </button>
           </div>
         </div>
@@ -499,13 +469,13 @@ const handleSpin = async (): Promise<void> => {
                     {/* Div da roleta */}
                     <div className={styles.wheelContainer}>
                       <img
-                        src="https://stermax.com.br/images_idealine/pointer.png"
+                        src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/1c0e4909-c97d-4028-8bf7-36bd86768997___1b12969e8c780c1bb5629b4944deeea1.png"
                         alt="Ponteiro"
                         className={`${styles.pointer} ${spinning ? styles.pointerVibrate : ''}`}
                       />
                       <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
                         <img
-                          src="https://stermax.com.br/images_idealine/roleta_imagens_v2.png"
+                          src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/574f41e2-f908-46a1-bfec-9a56b93d742a___a9c62f554e28971180b20b5f7143c92c.png"
                           alt="Imagem da roleta"
                           className={styles.wheelImage}
                         />

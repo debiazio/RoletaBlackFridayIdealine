@@ -3992,6 +3992,10 @@ merge-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
+"mfmgroup.roleta@https://devtesteroleta--mfmgroup.myvtex.com/_v/private/typings/linked/v1/mfmgroup.roleta@0.0.5+build1760363783/public/@types/mfmgroup.roleta":
+  version "0.0.5"
+  resolved "https://devtesteroleta--mfmgroup.myvtex.com/_v/private/typings/linked/v1/mfmgroup.roleta@0.0.5+build1760363783/public/@types/mfmgroup.roleta#c5693a304355a6984caca08e8c2f0eeb499eee1c"
+
 micromatch@^3.1.4:
   version "3.1.10"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"
@@ -5337,9 +5341,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.8/public/@types/vtex.render-runtime":
-  version "8.134.8"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.8/public/@types/vtex.render-runtime#b54ce7a361a512237c57ae2ad254ba1958b22ef9"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.136.1/public/@types/vtex.render-runtime":
+  version "8.136.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.136.1/public/@types/vtex.render-runtime#f163acbdb0fcc9be2065a34eb4fc797093f6d0ce"
 
 w3c-hr-time@^1.0.1:
   version "1.0.2"

@@ -360,11 +360,6 @@ const handleSpin = (): void => {
   {showSidebar && (
     <div className={styles.sidebar}>
       <img
-        src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/ac8d2ac3-148c-42d7-bf68-f2fd2602deb5___3c54c4087530540847683f3f38be3ebe.png"
-        alt="Logo"
-        className={styles.logoImageIdealine}
-      />
-      <img
         src={thirdLayout
             ? "https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/cb4041ad-4802-4398-897a-346f070dcfab___d503e6594dfed3189a6e322bfc4cce00.svg"
             : "https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/85e2a701-708a-43a0-aef7-d5f2174c1ff7___680241d7ae7f57c92a1b1c14db3934cc.svg"}

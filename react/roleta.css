@@ -159,7 +159,7 @@
 /* Classe que faz o pointer vibrar */
 .pointerVibrate {
   animation: vibrate 0.1s infinite;
-  transform-origin: top center;
+  transform-origin: 60% 90%;
   left: 40%;
 }
 
@@ -605,7 +605,7 @@
 
   .titleImage {
     width: 280px;
-    margin-top: 38px;
+    margin-top: 0;
     margin-bottom: 15px;
   }
 
@@ -620,6 +620,7 @@
     width: 100%;
     justify-content: center;
     flex-direction: column;
+    margin-top: -50px;
   }
 
   .wheel {
@@ -653,10 +654,6 @@
     text-align: center;
   }
 
-  .pointer {
-    width: 30px;
-  }
-
   .segmentText {
     font-size: 14px;
     margin-top: -65px;
@@ -672,5 +669,28 @@
   .prize {
     width: 60%;
   }
+
+  .pointer {
+    left: unset;
+    transform: unset;
+    z-index: 1;
+    width: 60px;
+  }
+
+  .conteinerTextos2LayoutChegou {
+    font-size: 16px;
+  }
+
+  .spinButton {
+    width: unset;
+  }
+
+  .textoTituloSegundaTela {
+    font-size: 20px;
+  }
+
+  .roletaContainer {
+  min-height: 520px;
+}
 
 }

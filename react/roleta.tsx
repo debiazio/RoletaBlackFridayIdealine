@@ -393,6 +393,13 @@ const Roleta = () => {
                             style={{ cursor: 'pointer', color: '#FC51A7', textShadow: 'none', fontSize: '30px' }} // Estilo para indicar que é clicável
                           >
                             {selectedPrize.code.toUpperCase()} {/* Exibe o código do cupom */}
+                            <ul className={styles.List}>
+                              <li>Informe o código do cupom sorteado via Whatsapp.</li>
+                              <li>Ou faça a compra diretamente aqui no site.</li>
+                              <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
+                                Lembre-se de digitar em letras maiúsculas.
+                              </li>
+                            </ul>
                           </span>
                         </>
                       )
@@ -410,38 +417,35 @@ const Roleta = () => {
             {/* Exibe a nova div somente no terceiro layout */}
             {thirdLayout && (
               <div className={styles.AgoraEhComVC}>
-                <ul className={styles.List}>
-                  <li>Informe o código do cupom sorteado via Whatsapp.</li>
-                  <li>Ou faça a compra diretamente aqui no site.</li>
-                  <li>Preencha todos os dados para a compra, e o campo do cupom aparecerá na última etapa antes do pagamento.
-                    Lembre-se de digitar em letras maiúsculas.
-                  </li>
-                </ul>
+
 
                 {/* Botões de Compra */}
                 <div className={styles.buttonContainer}>
                   <button
-                    onClick={() => {
-                      if (selectedPrize) {
-                        window.open(
-                          `https://wa.me/5541998516332?text=Olá, ganhei o cupom com o prêmio ${selectedPrize.code.toUpperCase()} na roleta, quero efetuar a compra e garantir meu prêmio`,
-                          '_blank'
-                        );
-                      }
-                    }}
+                      onClick={() => window.open('https://www.idealine.com.br', '_blank')}
+                      className={styles.siteButton}
+                    >
+                      COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO
+                      <img src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/50116347-19fb-4975-8f9a-04c257b26cc2___dd491c62ea310a7cd1e7499cd430814e.svg" alt="Ícone compra no site" className={styles.iconeSacola} />
+                  </button>
+                  <button
+                      onClick={() => {
+                        if (selectedPrize) {
+                          const prizeCode = encodeURIComponent(selectedPrize.code.toUpperCase());
+                          window.open(
+                            `https://api.whatsapp.com/send?phone=5541998516332&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Ganhei%20o%20pr%C3%AAmio%20${prizeCode}%20na%20roleta%20e%20quero%20falar%20com%20uma%20consultora%20para%20garantir%20meu%20cupom.%20%F0%9F%A4%A9`,
+                            '_blank'
+                          );
+                        }
+                      }}
+
                     className={styles.whatsappButton}
                   >
                     COMPRAR COM CONSULTORA E GARANTIR O MEU PRÊMIO
                     <img src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/033385b4-ec2e-4b80-b824-91b5d979c897___54e571574de08cf410c2541050bd7141.svg" alt="Ícone whatsapp" className={styles.whatsConsultoras} />
                   </button>
 
-                  <button
-                    onClick={() => window.open('https://www.idealine.com.br', '_blank')}
-                    className={styles.siteButton}
-                  >
-                    COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO
-                    <img src="https://mfmgroup.vtexassets.com/assets/vtex.file-manager-graphql/images/50116347-19fb-4975-8f9a-04c257b26cc2___dd491c62ea310a7cd1e7499cd430814e.svg" alt="Ícone compra no site" className={styles.iconeSacola} />
-                  </button>
+
                 </div>
               </div>
             )}

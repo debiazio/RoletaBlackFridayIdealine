@@ -41,260 +41,225 @@ const Roleta = () => {
 
   // Lista de prêmios fixos
   const prizes = [
-    { code: 'blackenvelopeg', title: 'Env. G' },
-    { code: 'black50reais', title: 'R$50' },
-    { code: 'blackpinkbox', title: 'BOX' },
-    { code: 'blackesmalteira', title: 'P. Esmaltes' },
-    { code: 'blackenvelopep', title: 'Env. P' },
-    { code: 'blackfrete', title: 'Frete' },
+    { code: 'BLACKCORDAO', title: 'Cordão' },
+    { code: 'BLACKNECESSAIRE', title: 'Necessaire' },
+    { code: 'BLACKSACOLA', title: 'Sacola' },
+    { code: 'BLACK50REAIS', title: 'Desconto R$50,00' },
+    { code: 'BLACKFRETE', title: 'Frete Grátis' },
+    { code: 'BLACKENVELOPEG', title: 'Envelope G' },
   ];
 
   // Regras de prêmios por data
   const prizeRules: Record<string, { range: number[]; code: string }[]> = {
-    // hoje para testes
-    '2024-11-03': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 64], code: 'blackenvelopeg' },
-      { range: [65, 70], code: 'blackpinkbox' },
-      { range: [71, 73], code: 'blackesmalteira' },
-      { range: [74, 75], code: 'black50reais' },
-      { range: [76, 77], code: 'blackfrete' },
+    '2025-11-10': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 10], code: 'BLACKFRETE' },
+      { range: [11, 50], code: 'BLACKENVELOPEG' },
+      { range: [51, 60], code: 'BLACKCORDAO' },
+      { range: [61, 64], code: 'BLACKNECESSAIRE' },
+      { range: [65, 72], code: 'BLACKSACOLA' },
     ],
-    '2024-11-04': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 64], code: 'blackenvelopeg' },
-      { range: [65, 70], code: 'blackpinkbox' },
-      { range: [71, 73], code: 'blackesmalteira' },
-      { range: [74, 75], code: 'black50reais' },
-      { range: [76, 77], code: 'blackfrete' },
+    '2025-11-11': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 7], code: 'BLACKFRETE' },
+      { range: [8, 47], code: 'BLACKENVELOPEG' },
+      { range: [48, 57], code: 'BLACKCORDAO' },
+      { range: [58, 61], code: 'BLACKNECESSAIRE' },
+      { range: [62, 65], code: 'BLACKSACOLA' },
     ],
-    '2024-11-05': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 69], code: 'blackpinkbox' },
-      { range: [70, 72], code: 'blackesmalteira' },
-      { range: [73, 76], code: 'black50reais' },
-      { range: [77, 81], code: 'blackfrete' },
+    '2025-11-12': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 7], code: 'BLACKFRETE' },
+      { range: [8, 47], code: 'BLACKENVELOPEG' },
+      { range: [48, 67], code: 'BLACKCORDAO' },
+      { range: [68, 71], code: 'BLACKNECESSAIRE' },
+      { range: [72, 77], code: 'BLACKSACOLA' },
     ],
-    '2024-11-06': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 69], code: 'blackpinkbox' },
-      { range: [70, 75], code: 'blackesmalteira' },
-      { range: [76, 80], code: 'black50reais' },
-      { range: [81, 82], code: 'blackfrete' },
+    '2025-11-13': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 10], code: 'BLACKFRETE' },
+      { range: [11, 50], code: 'BLACKENVELOPEG' },
+      { range: [51, 60], code: 'BLACKCORDAO' },
+      { range: [61, 64], code: 'BLACKNECESSAIRE' },
+      { range: [65, 70], code: 'BLACKSACOLA' },
     ],
-    '2024-11-07': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 69], code: 'blackpinkbox' },
-      { range: [70, 72], code: 'blackesmalteira' },
-      { range: [73, 74], code: 'black50reais' },
-      { range: [75, 76], code: 'blackfrete' },
+    '2025-11-14': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 15], code: 'BLACKFRETE' },
+      { range: [16, 55], code: 'BLACKENVELOPEG' },
+      { range: [56, 65], code: 'BLACKCORDAO' },
+      { range: [66, 69], code: 'BLACKNECESSAIRE' },
+      { range: [70, 81], code: 'BLACKSACOLA' },
     ],
-    '2024-11-08': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 69], code: 'blackpinkbox' },
-      { range: [70, 75], code: 'blackesmalteira' },
-      { range: [76, 78], code: 'black50reais' },
-      { range: [79, 80], code: 'blackfrete' },
+    '2025-11-15': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 15], code: 'BLACKFRETE' },
+      { range: [16, 55], code: 'BLACKENVELOPEG' },
+      { range: [56, 65], code: 'BLACKCORDAO' },
+      { range: [66, 69], code: 'BLACKNECESSAIRE' },
+      { range: [70, 81], code: 'BLACKSACOLA' },
     ],
-    '2024-11-09': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 69], code: 'blackpinkbox' },
-      { range: [70, 74], code: 'blackesmalteira' },
-      { range: [75, 77], code: 'black50reais' },
-      { range: [78, 79], code: 'blackfrete' },
+    '2025-11-16': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 21], code: 'BLACKFRETE' },
+      { range: [22, 41], code: 'BLACKENVELOPEG' },
+      { range: [42, 61], code: 'BLACKCORDAO' },
+      { range: [62, 63], code: 'BLACKNECESSAIRE' },
+      { range: [64, 85], code: 'BLACKSACOLA' },
     ],
-    '2024-11-10': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 71], code: 'blackpinkbox' },
-      { range: [72, 80], code: 'blackesmalteira' },
-      { range: [81, 85], code: 'black50reais' },
-      { range: [86, 90], code: 'blackfrete' },
+    '2025-11-17': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 20], code: 'BLACKFRETE' },
+      { range: [21, 40], code: 'BLACKENVELOPEG' },
+      { range: [41, 50], code: 'BLACKCORDAO' },
+      { range: [51, 52], code: 'BLACKNECESSAIRE' },
+      { range: [53, 57], code: 'BLACKSACOLA' },
     ],
-    '2024-11-11': [
-      { range: [1, 60], code: 'blackenvelopep' },
-      { range: [61, 63], code: 'blackenvelopeg' },
-      { range: [64, 71], code: 'blackpinkbox' },
-      { range: [72, 77], code: 'blackesmalteira' },
-      { range: [78, 82], code: 'black50reais' },
-      { range: [83, 84], code: 'blackfrete' },
+    '2025-11-18': [
+      { range: [1, 7], code: 'BLACK50REAIS' },
+      { range: [8, 12], code: 'BLACKFRETE' },
+      { range: [13, 32], code: 'BLACKENVELOPEG' },
+      { range: [33, 52], code: 'BLACKCORDAO' },
+      { range: [53, 56], code: 'BLACKNECESSAIRE' },
+      { range: [57, 63], code: 'BLACKSACOLA' },
     ],
-    '2024-11-12': [
-      { range: [1, 30], code: 'blackenvelopep' },
-      { range: [31, 33], code: 'blackenvelopeg' },
-      { range: [34, 41], code: 'blackpinkbox' },
-      { range: [42, 47], code: 'blackesmalteira' },
-      { range: [48, 52], code: 'black50reais' },
-      { range: [53, 54], code: 'blackfrete' },
+    '2025-11-19': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 7], code: 'BLACKFRETE' },
+      { range: [8, 27], code: 'BLACKENVELOPEG' },
+      { range: [28, 47], code: 'BLACKCORDAO' },
+      { range: [48, 51], code: 'BLACKNECESSAIRE' },
+      { range: [52, 49], code: 'BLACKSACOLA' },
     ],
-    '2024-11-13': [
-      { range: [1, 30], code: 'blackenvelopep' },
-      { range: [31, 33], code: 'blackenvelopeg' },
-      { range: [34, 41], code: 'blackpinkbox' },
-      { range: [42, 47], code: 'blackesmalteira' },
-      { range: [48, 52], code: 'black50reais' },
-      { range: [53, 57], code: 'blackfrete' },
+    '2025-11-20': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 7], code: 'BLACKFRETE' },
+      { range: [8, 27], code: 'BLACKENVELOPEG' },
+      { range: [28, 47], code: 'BLACKCORDAO' },
+      { range: [48, 51], code: 'BLACKNECESSAIRE' },
+      { range: [52, 65], code: 'BLACKSACOLA' },
     ],
-    '2024-11-14': [
-      { range: [1, 30], code: 'blackenvelopep' },
-      { range: [31, 33], code: 'blackenvelopeg' },
-      { range: [34, 41], code: 'blackpinkbox' },
-      { range: [42, 47], code: 'blackesmalteira' },
-      { range: [48, 52], code: 'black50reais' },
-      { range: [53, 55], code: 'blackfrete' },
+    '2025-11-21': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 12], code: 'BLACKFRETE' },
+      { range: [13, 32], code: 'BLACKENVELOPEG' },
+      { range: [33, 52], code: 'BLACKCORDAO' },
+      { range: [53, 56], code: 'BLACKNECESSAIRE' },
+      { range: [57, 62], code: 'BLACKSACOLA' },
     ],
-    '2024-11-15': [
-      { range: [1, 80], code: 'blackenvelopep' },
-      { range: [81, 83], code: 'blackenvelopeg' },
-      { range: [84, 91], code: 'blackpinkbox' },
-      { range: [92, 97], code: 'blackesmalteira' },
-      { range: [98, 102], code: 'black50reais' },
-      { range: [103, 104], code: 'blackfrete' },
+    '2025-11-22': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 12], code: 'BLACKFRETE' },
+      { range: [13, 32], code: 'BLACKENVELOPEG' },
+      { range: [33, 52], code: 'BLACKCORDAO' },
+      { range: [53, 56], code: 'BLACKNECESSAIRE' },
+      { range: [57, 65], code: 'BLACKSACOLA' },
     ],
-    '2024-11-16': [
-      { range: [1, 30], code: 'blackenvelopep' },
-      { range: [31, 33], code: 'blackenvelopeg' },
-      { range: [34, 39], code: 'blackpinkbox' },
-      { range: [40, 45], code: 'blackesmalteira' },
-      { range: [46, 50], code: 'black50reais' },
-      { range: [51], code: 'blackfrete' },
+    '2025-11-23': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 13], code: 'BLACKFRETE' },
+      { range: [14, 33], code: 'BLACKENVELOPEG' },
+      { range: [34, 53], code: 'BLACKCORDAO' },
+      { range: [54, 57], code: 'BLACKNECESSAIRE' },
+      { range: [58, 62], code: 'BLACKSACOLA' },
     ],
-    '2024-11-17': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 25], code: 'blackesmalteira' },
-      { range: [26, 30], code: 'black50reais' },
-      { range: [31, 35], code: 'blackfrete' },
+    '2025-11-24': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 20], code: 'BLACKFRETE' },
+      { range: [21, 40], code: 'BLACKENVELOPEG' },
+      { range: [41, 50], code: 'BLACKCORDAO' },
+      { range: [51, 58], code: 'BLACKNECESSAIRE' },
+      { range: [59, 69], code: 'BLACKSACOLA' },
     ],
-    '2024-11-18': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 25], code: 'blackesmalteira' },
-      { range: [26, 30], code: 'black50reais' },
-      { range: [31, 35], code: 'blackfrete' },
+    '2025-11-25': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 15], code: 'BLACKFRETE' },
+      { range: [16, 35], code: 'BLACKENVELOPEG' },
+      { range: [36, 45], code: 'BLACKCORDAO' },
+      { range: [46, 49], code: 'BLACKNECESSAIRE' },
+      { range: [50, 57], code: 'BLACKSACOLA' },
     ],
-    '2024-11-19': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 27], code: 'blackesmalteira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 34], code: 'blackfrete' },
+    '2025-11-26': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 15], code: 'BLACKFRETE' },
+      { range: [16, 35], code: 'BLACKENVELOPEG' },
+      { range: [36, 45], code: 'BLACKCORDAO' },
+      { range: [46, 49], code: 'BLACKNECESSAIRE' },
+      { range: [50, 63], code: 'BLACKSACOLA' },
     ],
-    '2024-11-20': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 27], code: 'blackesmalteira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 37], code: 'blackfrete' },
+    '2025-11-27': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 10], code: 'BLACKFRETE' },
+      { range: [11, 30], code: 'BLACKENVELOPEG' },
+      { range: [31, 50], code: 'BLACKCORDAO' },
+      { range: [51, 54], code: 'BLACKNECESSAIRE' },
+      { range: [55, 81], code: 'BLACKSACOLA' },
     ],
-    '2024-11-21': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 27], code: 'blackesmalteira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 34], code: 'blackfrete' },
+    '2025-11-28': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 15], code: 'BLACKFRETE' },
+      { range: [16, 35], code: 'BLACKENVELOPEG' },
+      { range: [36, 55], code: 'BLACKCORDAO' },
+      { range: [56, 67], code: 'BLACKNECESSAIRE' },
+      { range: [68, 71], code: 'BLACKSACOLA' },
     ],
-    '2024-11-22': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 27], code: 'blackesmalte ira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 37], code: 'blackfrete' },
+    '2025-11-29': [
+      { range: [1, 10], code: 'BLACK50REAIS' },
+      { range: [11, 15], code: 'BLACKFRETE' },
+      { range: [16, 35], code: 'BLACKENVELOPEG' },
+      { range: [36, 55], code: 'BLACKCORDAO' },
+      { range: [56, 59], code: 'BLACKNECESSAIRE' },
+      { range: [60, 71], code: 'BLACKSACOLA' },
     ],
-    '2024-11-23': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 27], code: 'blackesmalteira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 35], code: 'blackfrete' },
+    '2025-11-30': [
+      { range: [1, 5], code: 'BLACK50REAIS' },
+      { range: [6, 10], code: 'BLACKFRETE' },
+      { range: [11, 30], code: 'BLACKENVELOPEG' },
+      { range: [31, 50], code: 'BLACKCORDAO' },
+      { range: [51, 56], code: 'BLACKNECESSAIRE' },
+      { range: [57, 62], code: 'BLACKSACOLA' },
     ],
-    '2024-11-24': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 19], code: 'blackpinkbox' },
-      { range: [20, 27], code: 'blackesmalteira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 37], code: 'blackfrete' },
-    ],
-    '2024-11-25': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 21], code: 'blackpinkbox' },
-      { range: [22, 31], code: 'blackesmalteira' },
-      { range: [32, 37], code: 'black50reais' },
-      { range: [38, 42], code: 'blackfrete' },
-    ],
-    '2024-11-26': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 21], code: 'blackpinkbox' },
-      { range: [22, 31], code: 'blackesmalteira' },
-      { range: [32, 41], code: 'black50reais' },
-      { range: [42, 46], code: 'blackfrete' },
-    ],
-    '2024-11-27': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 21], code: 'blackpinkbox' },
-      { range: [22, 31], code: 'blackesmalteira' },
-      { range: [32, 41], code: 'black50reais' },
-      { range: [42, 47], code: 'blackfrete' },
-    ],
-    '2024-11-28': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 21], code: 'blackpinkbox' },
-      { range: [22, 31], code: 'blackesmalteira' },
-      { range: [32, 41], code: 'black50reais' },
-      { range: [42, 46], code: 'blackfrete' },
-    ],
-    '2024-11-29': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 21], code: 'blackpinkbox' },
-      { range: [22, 31], code: 'blackesmalteira' },
-      { range: [32, 39], code: 'black50reais' },
-      { range: [40, 42], code: 'blackfrete' },
-    ],
-    '2024-11-30': [
-      { range: [1, 10], code: 'blackenvelopep' },
-      { range: [11, 13], code: 'blackenvelopeg' },
-      { range: [14, 17], code: 'blackpinkbox' },
-      { range: [18, 27], code: 'blackesmalteira' },
-      { range: [28, 32], code: 'black50reais' },
-      { range: [33, 37], code: 'blackfrete' },
-    ],
+
   };
 
-  // const currentDate = new Date().toISOString().slice(0, 10);
-  const currentDate = '2024-11-03'; // força uma data que existe nas regras
+    // Pega a data atual no formato YYYY-MM-DD (ajustada para o fuso horário local)
+  const currentDate = new Date().toLocaleDateString('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
+  })
+    .split('/')
+    .reverse()
+    .map((part, i) => (i === 1 ? part.padStart(2, '0') : part)) // garante zero à esquerda no mês
+    .join('-');
 
 
+  // Função que retorna o código do prêmio com base na data e número aleatório
   const getPrizeCode = (randomNumber: number): string => {
     const rules = prizeRules[currentDate as keyof typeof prizeRules];
-    if (!rules) return '';
 
+    // Caso a data não esteja nas regras → probabilidade igual para todos
+    if (!rules) {
+      const equalChanceIndex = Math.floor(Math.random() * prizes.length);
+      const randomPrize = prizes[equalChanceIndex].code;
+      console.log(`${currentDate} - range (igual) - ${randomPrize}`);
+      return randomPrize;
+    }
+
+    // Verifica dentro do range configurado
     for (const rule of rules) {
       if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
-        return rule.code; // Apenas retorna o código da regra
+        console.log(`${currentDate} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
+        return rule.code;
       }
     }
 
+    // Caso não caia em nenhum range (falha de configuração)
+    console.warn(`${currentDate} - número ${randomNumber} fora de todos os ranges`);
     return '';
   };
 
+
+
+// Função principal da roleta
   const handleSpin = (): void => {
     if (!spinning && !hasSpun && prizes.length > 0) {
       setSpinning(true);
@@ -403,7 +368,7 @@ const Roleta = () => {
                           </span>
                         </>
                       )
-                      : "CUPOM INVÁLIDO" // ou uma mensagem apropriada
+                      : "TENTE OUTRA VEZ" // ou uma mensagem apropriada
                     : "CHEGOU A HORA DE TESTAR A SUA SORTE"}
                 </p>
               </div>

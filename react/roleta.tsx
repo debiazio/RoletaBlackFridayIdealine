@@ -240,14 +240,14 @@ const Roleta = () => {
     if (!rules) {
       const equalChanceIndex = Math.floor(Math.random() * prizes.length);
       const randomPrize = prizes[equalChanceIndex].code;
-      console.log(`${currentDate} - range (igual) - ${randomPrize}`);
+      console.log(`${currentDate} - número ${randomNumber} - range (igual) - ${randomPrize}`);
       return randomPrize;
     }
 
     // Verifica dentro do range configurado
     for (const rule of rules) {
       if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
-        console.log(`${currentDate} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
+        console.log(`${currentDate} - número ${randomNumber} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
         return rule.code;
       }
     }
@@ -265,7 +265,14 @@ const Roleta = () => {
       setSpinning(true);
       setHasSpun(true);
 
-      const randomNumber = Math.floor(Math.random() * 78) + 1;
+      // Obtém o conjunto de regras do dia atual
+      const rules = prizeRules[currentDate as keyof typeof prizeRules];
+
+      // Calcula o valor máximo do range desse dia (ex: 35 no dia 30/11)
+      const maxRange = rules ? Math.max(...rules.map((r) => r.range[1] || 0)) : prizes.length;
+
+      // Sorteia o número dentro do range correto
+      const randomNumber = Math.floor(Math.random() * maxRange) + 1;
       const prizeCode = getPrizeCode(randomNumber);
 
       // Ângulo do segmento de cada prêmio

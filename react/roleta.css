@@ -740,3 +740,18 @@
 }
 
 }
+
+@media screen and (max-width: 350px) {
+  .wheel {
+    width: 220px;
+    height: 220px;
+  }
+
+  .AgoraEhComVC{
+    width: 30%;
+  }
+
+  .couponMessage{
+    width: 70%;
+  }
+}

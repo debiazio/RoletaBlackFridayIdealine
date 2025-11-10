@@ -232,31 +232,30 @@ const Roleta = () => {
     .join('-');
 
 
-  // Função que retorna o código do prêmio com base na data e número aleatório
-  const getPrizeCode = (randomNumber: number): string => {
-    const rules = prizeRules[currentDate as keyof typeof prizeRules];
+// Função que retorna o código do prêmio com base na data e número aleatório
+const getPrizeCode = (randomNumber: number): string => {
+  const rules = prizeRules[currentDate as keyof typeof prizeRules];
 
-    // Caso a data não esteja nas regras → probabilidade igual para todos
-    if (!rules) {
-      const equalChanceIndex = Math.floor(Math.random() * prizes.length);
-      const randomPrize = prizes[equalChanceIndex].code;
-      console.log(`${currentDate} - número ${randomNumber} - range (igual) - ${randomPrize}`);
-      return randomPrize;
+  // Caso a data não esteja nas regras → probabilidade igual para todos
+  if (!rules) {
+    const equalChanceIndex = Math.floor(Math.random() * prizes.length);
+    const randomPrize = prizes[equalChanceIndex].code;
+    console.log(`${currentDate} - range (igual) - ${randomPrize}`);
+    return randomPrize;
+  }
+
+  // Verifica dentro do range configurado
+  for (const rule of rules) {
+    if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
+      console.log(`${currentDate}  - número ${randomNumber} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
+      return rule.code;
     }
+  }
 
-    // Verifica dentro do range configurado
-    for (const rule of rules) {
-      if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
-        console.log(`${currentDate} - número ${randomNumber} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
-        return rule.code;
-      }
-    }
-
-    // Caso não caia em nenhum range (falha de configuração)
-    console.warn(`${currentDate} - número ${randomNumber} fora de todos os ranges`);
-    return '';
-  };
-
+  // Caso não caia em nenhum range (falha de configuração)
+  console.warn(`${currentDate} - número ${randomNumber} fora de todos os ranges`);
+  return '';
+};
 
 
 // Função principal da roleta

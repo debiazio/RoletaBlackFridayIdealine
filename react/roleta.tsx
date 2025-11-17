@@ -393,7 +393,7 @@ const getPrizeCode = (randomNumber: number): string => {
                 {/* Botões de Compra */}
                 <div className={styles.buttonContainer}>
                   <button
-                      onClick={() => window.open('https://www.idealine.com.br', '_blank')}
+                      onClick={() => window.open('https://www.idealine.com.br/black-friday-idealine', '_blank')}
                       className={styles.siteButton}
                     >
                       COMPRAR PELO SITE E GARANTIR O MEU PRÊMIO

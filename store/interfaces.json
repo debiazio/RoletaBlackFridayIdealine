@@ -1,5 +1,8 @@
 {
   "roleta": {
     "component": "roleta"
+  },
+  "form-roleta": {
+    "component": "form"
   }
 }

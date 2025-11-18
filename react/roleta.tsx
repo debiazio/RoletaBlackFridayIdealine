@@ -21,23 +21,22 @@ const Roleta = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const successMessage = document.querySelector('.vtex-rich-text-0-x-paragraph--confirm-form-roleta');
-      if (successMessage) {
-        setShowRoletaContainer(true); // Exibe o container da roleta quando a classe aparece
-        setShowSpinButton(true);
-        setShowSidebar(true);
-        clearInterval(interval);
+    const onSuccess = () => {
+      setShowRoletaContainer(true)
+      setShowSpinButton(true)
+      setShowSidebar(true)
 
-        const formElement = document.querySelector('.vtex-flex-layout-0-x-flexRow--row-form-roleta');
-        if (formElement) {
-          (formElement as HTMLElement).style.display = 'none';
-        }
+      const formElement = document.querySelector('.vtex-flex-layout-0-x-flexRow--row-form-roleta')
+      if (formElement) {
+        (formElement as HTMLElement).style.display = 'none'
       }
-    }, 500);
+    }
 
-    return () => clearInterval(interval);
-  }, [hasSpun]);
+    window.addEventListener("form-roleta-sucesso", onSuccess)
+
+    return () => window.removeEventListener("form-roleta-sucesso", onSuccess)
+  }, [])
+
 
   // Lista de prêmios fixos
   const prizes = [

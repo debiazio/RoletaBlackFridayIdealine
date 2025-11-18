@@ -1,0 +1,125 @@
+.formContainer form {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.formContainer {
+  max-width: 500px;
+  padding: 20px;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formInput {
+  width: 100%;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  border-radius: 25px;
+
+  border: 2px solid #246FBF;
+  /* borda padrão */
+  background: #fff;
+
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Quando o usuário clica ou digita */
+.formInput:focus {
+  border: 2px solid #F466BE;
+}
+
+/* Esconde o checkbox padrão */
+.checkboxHidden {
+  display: none;
+}
+
+/* Wrapper com texto */
+.formCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: white;
+}
+
+/* Quadradinho personalizado */
+.customCheckbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid #F466BE;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+/* Check (ícone) escondido por padrão */
+.customCheckbox::after {
+  content: "✔";
+  color: white;
+  font-size: 14px;
+  display: none;
+}
+
+/* Quando o checkbox é marcado */
+.checkboxHidden:checked+.customCheckbox {
+  background: #F466BE;
+  border-color: #F466BE;
+}
+
+/* Mostra o check */
+.checkboxHidden:checked+.customCheckbox::after {
+  display: block;
+}
+
+/* Link da política de privacidade */
+.privacyLink {
+  color: #F466BE;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.privacyLink:hover {
+  text-decoration: underline;
+}
+
+
+.formButton {
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  background-color: #F466BE;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+
+  transition: 0.2s;
+}
+
+.formButton:hover {
+  background: rgba(87, 24, 63, 0.6);
+}
+
+.successMessage {
+  color: lightgreen;
+  margin-top: 16px;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 16px;
+}

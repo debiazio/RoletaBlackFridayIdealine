@@ -169,7 +169,7 @@ const ContactForm: React.FC = () => {
 
         {error && (
           <p className={styles.errorMessage}>
-            Preencha todos os campos corretamente.
+            Há itens não preenchidos/marcados.
           </p>
         )}
       </form>

@@ -59,6 +59,7 @@
   transition: 0.2s ease-in-out;
   min-width: 22px;
   min-height: 22px;
+  cursor: pointer;
 }
 
 /* Check (ícone) escondido por padrão */

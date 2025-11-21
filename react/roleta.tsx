@@ -40,186 +40,86 @@ const Roleta = () => {
 
   // Lista de prêmios fixos
   const prizes = [
+    { code: 'BLACK50REAIS', title: 'Desconto R$50,00' },
+    { code: 'BLACKENVELOPEG', title: 'Envelope G' },
     { code: 'BLACKCORDAO', title: 'Cordão' },
     { code: 'BLACKNECESSAIRE', title: 'Necessaire' },
     { code: 'BLACKSACOLA', title: 'Sacola' },
-    { code: 'BLACK50REAIS', title: 'Desconto R$50,00' },
-    { code: 'BLACKFRETE', title: 'Frete Grátis' },
-    { code: 'BLACKENVELOPEG', title: 'Envelope G' },
   ];
 
-  // Regras de prêmios por data
-  const prizeRules: Record<string, { range: number[]; code: string }[]> = {
-    '2025-11-10': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 10], code: 'BLACKFRETE' },
-      { range: [11, 50], code: 'BLACKENVELOPEG' },
-      { range: [51, 60], code: 'BLACKCORDAO' },
-      { range: [61, 64], code: 'BLACKNECESSAIRE' },
-      { range: [65, 72], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-11': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 7], code: 'BLACKFRETE' },
-      { range: [8, 47], code: 'BLACKENVELOPEG' },
-      { range: [48, 57], code: 'BLACKCORDAO' },
-      { range: [58, 61], code: 'BLACKNECESSAIRE' },
-      { range: [62, 65], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-12': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 7], code: 'BLACKFRETE' },
-      { range: [8, 47], code: 'BLACKENVELOPEG' },
-      { range: [48, 67], code: 'BLACKCORDAO' },
-      { range: [68, 71], code: 'BLACKNECESSAIRE' },
-      { range: [72, 77], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-13': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 10], code: 'BLACKFRETE' },
-      { range: [11, 50], code: 'BLACKENVELOPEG' },
-      { range: [51, 60], code: 'BLACKCORDAO' },
-      { range: [61, 64], code: 'BLACKNECESSAIRE' },
-      { range: [65, 70], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-14': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 15], code: 'BLACKFRETE' },
-      { range: [16, 55], code: 'BLACKENVELOPEG' },
-      { range: [56, 65], code: 'BLACKCORDAO' },
-      { range: [66, 69], code: 'BLACKNECESSAIRE' },
-      { range: [70, 81], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-15': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 15], code: 'BLACKFRETE' },
-      { range: [16, 55], code: 'BLACKENVELOPEG' },
-      { range: [56, 65], code: 'BLACKCORDAO' },
-      { range: [66, 69], code: 'BLACKNECESSAIRE' },
-      { range: [70, 81], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-16': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 21], code: 'BLACKFRETE' },
-      { range: [22, 41], code: 'BLACKENVELOPEG' },
-      { range: [42, 61], code: 'BLACKCORDAO' },
-      { range: [62, 63], code: 'BLACKNECESSAIRE' },
-      { range: [64, 85], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-17': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 20], code: 'BLACKFRETE' },
-      { range: [21, 40], code: 'BLACKENVELOPEG' },
-      { range: [41, 50], code: 'BLACKCORDAO' },
-      { range: [51, 52], code: 'BLACKNECESSAIRE' },
-      { range: [53, 57], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-18': [
-      { range: [1, 7], code: 'BLACK50REAIS' },
-      { range: [8, 12], code: 'BLACKFRETE' },
-      { range: [13, 32], code: 'BLACKENVELOPEG' },
-      { range: [33, 52], code: 'BLACKCORDAO' },
-      { range: [53, 56], code: 'BLACKNECESSAIRE' },
-      { range: [57, 63], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-19': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 7], code: 'BLACKFRETE' },
-      { range: [8, 27], code: 'BLACKENVELOPEG' },
-      { range: [28, 47], code: 'BLACKCORDAO' },
-      { range: [48, 51], code: 'BLACKNECESSAIRE' },
-      { range: [52, 49], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-20': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 7], code: 'BLACKFRETE' },
-      { range: [8, 27], code: 'BLACKENVELOPEG' },
-      { range: [28, 47], code: 'BLACKCORDAO' },
-      { range: [48, 51], code: 'BLACKNECESSAIRE' },
-      { range: [52, 65], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-21': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 12], code: 'BLACKFRETE' },
-      { range: [13, 32], code: 'BLACKENVELOPEG' },
-      { range: [33, 52], code: 'BLACKCORDAO' },
-      { range: [53, 56], code: 'BLACKNECESSAIRE' },
-      { range: [57, 62], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-22': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 12], code: 'BLACKFRETE' },
-      { range: [13, 32], code: 'BLACKENVELOPEG' },
-      { range: [33, 52], code: 'BLACKCORDAO' },
-      { range: [53, 56], code: 'BLACKNECESSAIRE' },
-      { range: [57, 65], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-23': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 13], code: 'BLACKFRETE' },
-      { range: [14, 33], code: 'BLACKENVELOPEG' },
-      { range: [34, 53], code: 'BLACKCORDAO' },
-      { range: [54, 57], code: 'BLACKNECESSAIRE' },
-      { range: [58, 62], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-24': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 20], code: 'BLACKFRETE' },
-      { range: [21, 40], code: 'BLACKENVELOPEG' },
-      { range: [41, 50], code: 'BLACKCORDAO' },
-      { range: [51, 58], code: 'BLACKNECESSAIRE' },
-      { range: [59, 69], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-25': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 15], code: 'BLACKFRETE' },
-      { range: [16, 35], code: 'BLACKENVELOPEG' },
-      { range: [36, 45], code: 'BLACKCORDAO' },
-      { range: [46, 49], code: 'BLACKNECESSAIRE' },
-      { range: [50, 57], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-26': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 15], code: 'BLACKFRETE' },
-      { range: [16, 35], code: 'BLACKENVELOPEG' },
-      { range: [36, 45], code: 'BLACKCORDAO' },
-      { range: [46, 49], code: 'BLACKNECESSAIRE' },
-      { range: [50, 63], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-27': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 10], code: 'BLACKFRETE' },
-      { range: [11, 30], code: 'BLACKENVELOPEG' },
-      { range: [31, 50], code: 'BLACKCORDAO' },
-      { range: [51, 54], code: 'BLACKNECESSAIRE' },
-      { range: [55, 81], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-28': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 15], code: 'BLACKFRETE' },
-      { range: [16, 35], code: 'BLACKENVELOPEG' },
-      { range: [36, 55], code: 'BLACKCORDAO' },
-      { range: [56, 67], code: 'BLACKNECESSAIRE' },
-      { range: [68, 71], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-29': [
-      { range: [1, 10], code: 'BLACK50REAIS' },
-      { range: [11, 15], code: 'BLACKFRETE' },
-      { range: [16, 35], code: 'BLACKENVELOPEG' },
-      { range: [36, 55], code: 'BLACKCORDAO' },
-      { range: [56, 59], code: 'BLACKNECESSAIRE' },
-      { range: [60, 71], code: 'BLACKSACOLA' },
-    ],
-    '2025-11-30': [
-      { range: [1, 5], code: 'BLACK50REAIS' },
-      { range: [6, 10], code: 'BLACKFRETE' },
-      { range: [11, 30], code: 'BLACKENVELOPEG' },
-      { range: [31, 50], code: 'BLACKCORDAO' },
-      { range: [51, 56], code: 'BLACKNECESSAIRE' },
-      { range: [57, 62], code: 'BLACKSACOLA' },
-    ],
-
-  };
+// Regras de prêmios atualizadas — BLACKFRETE removido e valores somados em BLACKSACOLA
+const prizeRules: Record<string, { range: number[]; code: string }[]> = {
+  '2025-11-21': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 54], code: 'BLACKNECESSAIRE' },
+    { range: [55, 62], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-22': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 54], code: 'BLACKNECESSAIRE' },
+    { range: [55, 65], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-23': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 54], code: 'BLACKNECESSAIRE' },
+    { range: [55, 69], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-24': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 54], code: 'BLACKNECESSAIRE' },
+    { range: [55, 62], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-25': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 54], code: 'BLACKNECESSAIRE' },
+    { range: [55, 57], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-26': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 54], code: 'BLACKNECESSAIRE' },
+    { range: [55, 63], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-27': [
+    { range: [1, 5], code: 'BLACK50REAIS' },
+    { range: [6, 25], code: 'BLACKENVELOPEG' },
+    { range: [26, 45], code: 'BLACKCORDAO' },
+    { range: [46, 49], code: 'BLACKNECESSAIRE' },
+    { range: [50, 81], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-28': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 60], code: 'BLACKNECESSAIRE' },
+    { range: [61, 81], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-29': [
+    { range: [1, 10], code: 'BLACK50REAIS' },
+    { range: [11, 30], code: 'BLACKENVELOPEG' },
+    { range: [31, 50], code: 'BLACKCORDAO' },
+    { range: [51, 55], code: 'BLACKNECESSAIRE' },
+    { range: [56, 71], code: 'BLACKSACOLA' },
+  ],
+  '2025-11-30': [
+    { range: [1, 5], code: 'BLACK50REAIS' },
+    { range: [6, 25], code: 'BLACKENVELOPEG' },
+    { range: [26, 45], code: 'BLACKCORDAO' },
+    { range: [46, 51], code: 'BLACKNECESSAIRE' },
+    { range: [52, 62], code: 'BLACKSACOLA' },
+  ],
+};
 
     // Pega a data atual no formato YYYY-MM-DD (ajustada para o fuso horário local)
   const currentDate = new Date().toLocaleDateString('pt-BR', {
@@ -231,30 +131,33 @@ const Roleta = () => {
     .join('-');
 
 
-// Função que retorna o código do prêmio com base na data e número aleatório
-const getPrizeCode = (randomNumber: number): string => {
-  const rules = prizeRules[currentDate as keyof typeof prizeRules];
+    const getPrizeCode = (randomNumber: number): string => {
+      const rules = prizeRules[currentDate as keyof typeof prizeRules];
 
-  // Caso a data não esteja nas regras → probabilidade igual para todos
-  if (!rules) {
-    const equalChanceIndex = Math.floor(Math.random() * prizes.length);
-    const randomPrize = prizes[equalChanceIndex].code;
-    console.log(`${currentDate} - range (igual) - ${randomPrize}`);
-    return randomPrize;
-  }
+      if (!rules) {
+        const equalChanceIndex = Math.floor(Math.random() * prizes.length);
+        const randomPrize = prizes[equalChanceIndex].code;
+        console.log(`${currentDate} - range (igual) - ${randomPrize}`);
+        return randomPrize;
+      }
 
-  // Verifica dentro do range configurado
-  for (const rule of rules) {
-    if (randomNumber >= rule.range[0] && randomNumber <= rule.range[1]) {
-      console.log(`${currentDate}  - número ${randomNumber} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
-      return rule.code;
-    }
-  }
+      // Garante que o número esteja dentro do range máximo
+      const maxRange = Math.max(...rules.map((r) => r.range[1]));
+      const adjustedNumber = Math.min(randomNumber, maxRange);
 
-  // Caso não caia em nenhum range (falha de configuração)
-  console.warn(`${currentDate} - número ${randomNumber} fora de todos os ranges`);
-  return '';
-};
+      // Busca o prêmio correspondente
+      for (const rule of rules) {
+        if (adjustedNumber >= rule.range[0] && adjustedNumber <= rule.range[1]) {
+          console.log(`${currentDate} - número ${adjustedNumber} - range ${rule.range[0]},${rule.range[1]} - ${rule.code}`);
+          return rule.code;
+        }
+      }
+
+      // 🚨 Caso improvável: número não encontrado → retorna o último prêmio
+      console.warn(`${currentDate} - número ${adjustedNumber} fora de todos os ranges. Retornando fallback.`);
+      return rules[rules.length - 1].code; // fallback para BLACKSACOLA
+    };
+
 
 
 // Função principal da roleta
@@ -446,7 +349,7 @@ const getPrizeCode = (randomNumber: number): string => {
           />
           <div className={styles.wheel} style={{ transform: `rotate(${rotation}deg)` }}>
             <img
-              src="https://stermax.com.br/images_idealine/roleta/roleta-idealine.webp"
+              src="https://stermax.com.br/images_idealine/roleta/roleta-app-custom.webp"
               alt="Imagem da roleta"
               className={styles.wheelImage}
             />

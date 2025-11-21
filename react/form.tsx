@@ -122,9 +122,9 @@ const ContactForm: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          Nome: form.nome,
-          Email: form.email,
-          Telefone: form.telefone
+          nome: form.nome,
+          email: form.email,
+          telefone: form.telefone
         })
       })
 

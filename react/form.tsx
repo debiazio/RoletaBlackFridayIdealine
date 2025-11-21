@@ -122,11 +122,23 @@ const ContactForm: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nome: form.nome,
-          email: form.email,
-          telefone: form.telefone
+          Nome: form.nome,
+          Email: form.email,
+          Telefone: form.telefone
         })
       })
+
+      // 🔥 LOG PARA SABER SE PRODUÇÃO LIBEROU A ESCRITA
+      console.log(
+        '%c[FORM-ROLETA] Resultado do envio:',
+        'color:#4CAF50; font-weight:bold;',
+        {
+          status: res.status,
+          ok: res.ok,
+          url: window.location.href,
+          ambiente: window.location.hostname.includes('myvtex') ? 'DEV' : 'PROD'
+        }
+      )
 
       if (res.ok) {
         setSuccess(true)
@@ -150,9 +162,11 @@ const ContactForm: React.FC = () => {
       } else {
         alert('Erro ao enviar os dados.')
       }
-    } catch {
+    } catch (err) {
+      console.log('%c[FORM-ROLETA] Erro de conexão:', 'color:red; font-weight:bold;', err)
       alert('Erro de conexão.')
     }
+
 
     setLoading(false)
   }
